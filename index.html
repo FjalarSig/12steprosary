@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The 12-Step Rosary — a daily companion for the steps</title>
+<meta name="description" content="A simple, tactile companion for those walking the steps. Twelve beads for the steps, three for the Serenity Prayer, one pendant for your Higher Power as you understand it." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #faf6ef;
+    --bg-soft: #f3ede2;
+    --ink: #2a2722;
+    --ink-soft: #5b554c;
+    --rule: #d9d0bf;
+    --accent: #6b5a3e;
+    --accent-soft: #a08f72;
+    --max: 720px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    font-size: 19px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .lang-toggle {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 50;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 6px 4px;
+    display: inline-flex;
+    gap: 2px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .lang-toggle button {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font: inherit;
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .lang-toggle button[aria-pressed="true"] {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  main {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 64px 28px 120px;
+  }
+  header.hero { text-align: center; padding: 24px 0 8px; }
+  .eyebrow {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 22px;
+  }
+  h1 {
+    font-weight: 500;
+    font-size: clamp(40px, 7vw, 60px);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin: 0 0 18px;
+  }
+  .lede {
+    font-style: italic;
+    font-size: clamp(20px, 2.4vw, 24px);
+    color: var(--ink-soft);
+    max-width: 36ch;
+    margin: 0 auto;
+  }
+  .hero-image {
+    display: block;
+    margin: 48px auto 0;
+    max-width: 460px;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+  .rule {
+    border: 0;
+    border-top: 1px solid var(--rule);
+    margin: 64px auto;
+    width: 60px;
+  }
+  section { margin: 64px 0; }
+  h2 {
+    font-weight: 500;
+    font-size: clamp(28px, 4vw, 34px);
+    letter-spacing: -0.005em;
+    margin: 0 0 18px;
+  }
+  h3 {
+    font-weight: 600;
+    font-size: 17px;
+    font-family: 'Inter', system-ui, sans-serif;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin: 28px 0 8px;
+    color: var(--ink);
+  }
+  p { margin: 0 0 18px; }
+  .anatomy {
+    background: var(--bg-soft);
+    border-radius: 6px;
+    padding: 28px 30px;
+    margin: 24px 0;
+  }
+  .anatomy ul { list-style: none; padding: 0; margin: 0; }
+  .anatomy li {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+  }
+  .anatomy li:last-child { border-bottom: 0; }
+  .anatomy .marker {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    flex: 0 0 130px;
+    padding-top: 4px;
+  }
+  .practice {
+    margin: 28px 0;
+    padding-left: 20px;
+    border-left: 2px solid var(--accent-soft);
+  }
+  .practice h3 { margin-top: 0; }
+  .ritual-card {
+    background: var(--bg-soft);
+    border-radius: 6px;
+    padding: 24px 28px;
+    margin: 18px 0;
+  }
+  .ritual-card h3 {
+    margin: 0 0 12px;
+    color: var(--accent);
+  }
+  .ritual-card ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: bead;
+  }
+  .ritual-card ol li {
+    counter-increment: bead;
+    padding: 8px 0 8px 36px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .ritual-card ol li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 14px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+  }
+  .prayer {
+    text-align: center;
+    font-style: italic;
+    font-size: clamp(20px, 2.6vw, 24px);
+    color: var(--ink);
+    line-height: 1.55;
+    padding: 24px 0;
+  }
+  .footnote {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin-top: 18px;
+  }
+  .contact a, .body-link {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-soft);
+  }
+  .contact a:hover, .body-link:hover { color: var(--ink); }
+  footer {
+    text-align: center;
+    margin-top: 96px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+  }
+  [data-lang] { display: none; }
+  html[lang="en"] [data-lang="en"],
+  html[lang="is"] [data-lang="is"] { display: revert; }
+  html[lang="en"] section[data-lang="en"],
+  html[lang="is"] section[data-lang="is"],
+  html[lang="en"] header[data-lang="en"],
+  html[lang="is"] header[data-lang="is"],
+  html[lang="en"] div[data-lang="en"],
+  html[lang="is"] div[data-lang="is"],
+  html[lang="en"] img[data-lang="en"],
+  html[lang="is"] img[data-lang="is"] { display: block; }
+</style>
+</head>
+<body>
+
+<nav class="lang-toggle" aria-label="Language">
+  <button id="btn-en" aria-pressed="true" type="button">EN</button>
+  <button id="btn-is" aria-pressed="false" type="button">IS</button>
+</nav>
+
+<main>
+
+  <!-- ============ ENGLISH ============ -->
+  <header class="hero" data-lang="en">
+    <div class="eyebrow">A daily companion</div>
+    <h1>The 12-Step Rosary</h1>
+    <p class="lede">A simple, tactile companion for those walking the steps — one bead at a time.</p>
+    <img class="hero-image" src="12stepRosary.png" alt="The 12-Step Rosary: a black lava-bead rosary with a small linen pouch labelled 'The Daily Practice', shown alongside interchangeable pendants — cross, Star of David, crescent moon, AA circle and triangle, yin-yang, lotus." />
+  </header>
+
+  <section data-lang="en">
+    <h2>What it is</h2>
+    <p>The 12-Step Rosary brings two quiet traditions together — the steady rhythm of beads in the hand and the daily practice of the Twelve Steps — into a single object you can hold.</p>
+    <p>It is for anyone working a program of recovery: AA, Al‑Anon, NA, OA, GA, ACA, and others. It does not ask you to be Catholic, or to belong to any particular tradition. It only asks you to slow down, breathe, and let one bead at a time bring you back to the practice.</p>
+  </section>
+
+  <section data-lang="en">
+    <h2>How it is arranged</h2>
+    <div class="anatomy">
+      <ul>
+        <li><span class="marker">The pendant</span><span>A symbol of your Higher Power as you understand it — a cross, a Star of David, a crescent moon, the circle and triangle of AA, or any sign that names the source for you. Begin and end here.</span></li>
+        <li><span class="marker">Three beads</span><span>Serenity, courage, wisdom — the three qualities asked for in the Serenity Prayer.</span></li>
+        <li><span class="marker">Twelve beads</span><span>One for each of the Twelve Steps of your program. Together, all twelve hold the whole arc of the work.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section data-lang="en">
+    <h2>Two ways to use it</h2>
+
+    <div class="practice">
+      <h3>The full round</h3>
+      <p>Move slowly through all twelve beads, naming each step in turn. Pause on the bead. Ask quietly: <em>what is this step asking of me today?</em> Begin and end at the pendant.</p>
+    </div>
+
+    <div class="practice">
+      <h3>The day in three rituals</h3>
+      <p>You can also let the three sets of four beads hold three small rituals — one for morning, one for midday, one for evening. The four beads in a set are not four steps. They are four quiet moments inside one ritual that you build for yourself.</p>
+    </div>
+  </section>
+
+  <section data-lang="en">
+    <h2>A suggested rhythm</h2>
+    <p>This is one way to use the three sets — drawn from common 12‑step practice. Take what helps and leave the rest.</p>
+
+    <div class="ritual-card">
+      <h3>Morning</h3>
+      <ol>
+        <li>Meditation</li>
+        <li>A morning prayer</li>
+        <li>The day's intentions or work</li>
+        <li>The Serenity Prayer</li>
+      </ol>
+    </div>
+
+    <div class="ritual-card">
+      <h3>Midday</h3>
+      <ol>
+        <li>The 3rd Step Prayer</li>
+        <li>The Serenity Prayer</li>
+        <li>Meditation</li>
+        <li>The 7th Step Prayer</li>
+      </ol>
+    </div>
+
+    <div class="ritual-card">
+      <h3>Evening</h3>
+      <ol>
+        <li>The Serenity Prayer</li>
+        <li>The 11th Step Prayer</li>
+        <li>Meditation</li>
+        <li>A prayer of gratitude</li>
+      </ol>
+    </div>
+
+    <p class="footnote">These are only suggestions. Build the rhythm that fits your own program and your own day. The rosary holds whatever practice you give it.</p>
+  </section>
+
+  <hr class="rule" />
+
+  <section data-lang="en">
+    <h2>The Serenity Prayer</h2>
+    <p class="prayer">
+      Grant me the serenity<br/>
+      to accept the things I cannot change,<br/>
+      courage to change the things I can,<br/>
+      and wisdom to know the difference.
+    </p>
+  </section>
+
+  <section data-lang="en">
+    <h2>The Twelve Steps</h2>
+    <p>The twelve steps belong to the program you walk. You will know them — one to each bead in the circle. If you would like to read them in their original wording, you can find them in your fellowship's literature, or on the official Alcoholics Anonymous site: <a class="body-link" href="https://www.aa.org/the-twelve-steps" target="_blank" rel="noopener">aa.org/the-twelve-steps</a>.</p>
+    <p class="footnote">The Twelve Steps and the Step Prayers (3rd, 7th, 11th) referred to above belong to the literatures of Alcoholics Anonymous and other Twelve‑Step fellowships and are not reproduced here. They can be found in the published literature of your program.</p>
+  </section>
+
+  <hr class="rule" />
+
+  <img data-lang="en" class="hero-image" src="IMG_6015.jpg" alt="A meditating figure seated between mountains and forest, hands resting open." />
+
+  <section data-lang="en">
+    <h2>About</h2>
+    <p>The 12‑Step Rosary is the idea of Fjalar Sigurdarson, drawn from his own years working the steps and from his contemplative tradition. The rosary is meant for anyone who finds that something to hold helps the practice take root.</p>
+    <p>Each rosary ships in a small cloth pouch together with a cross and the AA symbol, so you can choose which one to wear on your rosary.</p>
+  </section>
+
+  <section class="contact" data-lang="en">
+    <h2>Contact &amp; orders</h2>
+    <p>For orders or to share how you are using your rosary, please write to <a href="mailto:fjalarsig@gmail.com">fjalarsig@gmail.com</a>.</p>
+  </section>
+
+
+  <!-- ============ ICELANDIC ============ -->
+  <header class="hero" data-lang="is">
+    <div class="eyebrow">Dagleg fylgd</div>
+    <h1>Tólf spora talnabandið</h1>
+    <p class="lede">Einföld, áþreifanleg fylgd þeirra sem ganga sporin — eina perlu í einu.</p>
+    <img class="hero-image" src="12stepRosary.png" alt="Tólf spora talnabandið: talnaband úr svörtum hraunperlum með litlum taupoka merktum 'The Daily Practice', sýnt ásamt skiptanlegum nistum — kross, Davíðsstjarna, hálfmáni, hringur og þríhyrningur AA, yin-yang og lótusblóm." />
+  </header>
+
+  <section data-lang="is">
+    <p>Tólf spora talnabandið sameinar tvær kyrrlátar hefðir — taktfastan rytma perlanna í lófanum og daglega iðkun sporanna tólf — í einn hlut sem þú getur haldið á.</p>
+    <p>Talnabandið er ætlað öllum sem vinna sporin: AA, Al‑Anon, NA, OA, GA, ACA og öðrum. Það biður þig ekki um að vera kaþólskur, né að tilheyra neinni sérstakri hefð. Það biður þig aðeins um að hægja á þér, anda, og leyfa einni perlu í einu að iðka sporin og sinna batanum.</p>
+  </section>
+
+  <section data-lang="is">
+    <h2>Uppbyggingin</h2>
+    <div class="anatomy">
+      <ul>
+        <li><span class="marker">Nistið</span><span>Tákn fyrir þann æðri mátt sem þú skilur — kross, Davíðsstjarna, hálfmáninn, hringur og þríhyrningur AA, eða hvaða tákn sem nefnir uppsprettuna fyrir þér. Byrjaðu og endaðu hér.</span></li>
+        <li><span class="marker">Þrjár perlur</span><span>Æðruleysi, kjarkur, vit — eiginleikarnir þrír sem beðið er um í æðruleysisbæninni.</span></li>
+        <li><span class="marker">Tólf perlur</span><span>Ein fyrir hvert hinna tólf spora í þínu prógrammi.</span></li>
+        <li><span class="marker">3×4 perlur</span><span>Þrjár stundir úr deginum þar sem þú gefur þér tíma til að setjast niður með æðri mætti. Að morgni, um miðjan dag og að kvöldi. Hver perla getur táknað bæn, hugleiðslu eða kyrrð, allt eftir því sem hentar þér.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section data-lang="is">
+    <h2>Tvær leiðir til að nota það</h2>
+
+    <div class="practice">
+      <h3>Heill hringur</h3>
+      <p>Færðu þig hægt í gegnum allar tólf perlurnar og nefndu hvert spor fyrir sig. Staldraðu við perluna. Spurðu í hljóði: <em>hvað biður þetta spor mig um í dag?</em> Byrjaðu og endaðu á nistinu.</p>
+    </div>
+
+    <div class="practice">
+      <h3>Dagurinn í þremur helgistundum</h3>
+      <p>Hvert sett af fjórum perlum táknar tiltekna stund í deginum. Morgunstund, eitt sett um miðjan dag, og eitt sett að kvöldi. Perlurnar fjórar í settinu eru ekki fjögur spor. Þær eru fjögur kyrrlát augnablik innan einnar helgistundar sem þú býrð sjálf/ur til.</p>
+    </div>
+  </section>
+
+  <section data-lang="is">
+    <h2>Tillaga að takti</h2>
+    <p>Þetta er ein leið til að nota settin þrjú — dregin úr almennri 12 spora iðkun. Taktu það sem hjálpar og slepptu hinu.</p>
+
+    <div class="ritual-card">
+      <h3>Morgunn</h3>
+      <ol>
+        <li>Hugleiðsla</li>
+        <li>Morgunbæn</li>
+        <li>Verkefni dagsins</li>
+        <li>Æðruleysisbænin</li>
+      </ol>
+    </div>
+
+    <div class="ritual-card">
+      <h3>Dagur</h3>
+      <ol>
+        <li>3. spors bænin</li>
+        <li>Æðruleysisbænin</li>
+        <li>Hugleiðsla</li>
+        <li>7. spors bænin</li>
+      </ol>
+    </div>
+
+    <div class="ritual-card">
+      <h3>Kvöld</h3>
+      <ol>
+        <li>Æðruleysisbænin</li>
+        <li>11. spors bænin</li>
+        <li>Hugleiðsla</li>
+        <li>Þakkarbæn</li>
+      </ol>
+    </div>
+
+    <p class="footnote">Þetta eru aðeins tillögur. Búðu til þann takt sem hentar þínu prógrammi og þínum degi. Talnabandið heldur þeirri iðkun sem þú gefur því.</p>
+  </section>
+
+  <hr class="rule" />
+
+  <section data-lang="is">
+    <h2>Æðruleysisbænin</h2>
+    <p class="prayer">
+      Guð, gef mér æðruleysi<br/>
+      til að sætta mig við það sem ég fæ ekki breytt,<br/>
+      kjark til að breyta því sem ég get breytt,<br/>
+      og vit til að greina þar á milli.
+    </p>
+  </section>
+
+  <section data-lang="is">
+    <h2>Sporin tólf</h2>
+    <p>Sporin tólf færðu úr þínu prógrammi. Ef þú vilt lesa þau í upprunalegri útgáfu AA‑samtakanna finnur þú þau á heimasíðu AA á Íslandi: <a class="body-link" href="https://aa.is/" target="_blank" rel="noopener">aa.is</a>.</p>
+    <p class="footnote">Sporin tólf og sporabænirnar (3., 7. og 11. spors bæn) sem vísað er til hér að ofan tilheyra útgáfum AA og annarra tólf spora samtaka og eru ekki birtar hér í heild. Þær er að finna í útgefnu efni þíns prógramms.</p>
+  </section>
+
+  <hr class="rule" />
+
+  <img data-lang="is" class="hero-image" src="IMG_6015.jpg" alt="Hugleiðandi maður sem situr milli fjalla og skógar með opnar hendur." />
+
+  <section data-lang="is">
+    <h2>Um talnabandið</h2>
+    <p>Tólf spora talnabandið er hugmynd Fjalars Sigurðarsonar, sprottin úr hans eigin sporavinnu og íhugunarhefð. Talnabandið er ætlað öllum sem finna að það hjálpar iðkuninni að festast þegar hægt er að halda á einhverju.</p>
+    <p>Hvert talnaband er sent í litlum taupoka ásamt krossi og AA‑merkinu, eftir því hvað þú kýst að hafa á þínu talnabandi.</p>
+  </section>
+
+  <section class="contact" data-lang="is">
+    <h2>Pantanir og hafa samband</h2>
+    <p>Vegna pantana eða til að segja frá því hvernig þú notar þitt talnaband: <a href="mailto:fjalarsig@gmail.com">fjalarsig@gmail.com</a>.</p>
+  </section>
+
+
+  <footer>
+    <span data-lang="en">© Fjalar Sigurdarson · Iceland · Made with quiet intention.</span>
+    <span data-lang="is">© Fjalar Sigurðarson · Ísland · Gert í kyrrð og einlægni.</span>
+  </footer>
+
+</main>
+
+<script>
+  (function () {
+    const html = document.documentElement;
+    const enBtn = document.getElementById('btn-en');
+    const isBtn = document.getElementById('btn-is');
+
+    function setLang(lang) {
+      html.setAttribute('lang', lang);
+      enBtn.setAttribute('aria-pressed', lang === 'en');
+      isBtn.setAttribute('aria-pressed', lang === 'is');
+      try { localStorage.setItem('rosary.lang', lang); } catch (e) {}
+      document.title = lang === 'is'
+        ? 'Tólf spora talnabandið — daglegur fylgdarmaður'
+        : 'The 12-Step Rosary — a daily companion for the steps';
+    }
+
+    let initial = 'en';
+    try {
+      const stored = localStorage.getItem('rosary.lang');
+      if (stored === 'en' || stored === 'is') initial = stored;
+      else if ((navigator.language || '').toLowerCase().startsWith('is')) initial = 'is';
+    } catch (e) {}
+    setLang(initial);
+
+    enBtn.addEventListener('click', () => setLang('en'));
+    isBtn.addEventListener('click', () => setLang('is'));
+  })();
+</script>
+
+</body>
+</html>
