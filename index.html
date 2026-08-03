@@ -219,6 +219,14 @@
     letter-spacing: 0.06em;
     color: var(--ink-soft);
   }
+  footer .links { margin-top: 10px; }
+  footer .links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    margin: 0 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+  footer .links a:hover { color: var(--ink); }
   [data-lang] { display: none; }
   html[lang="en"] [data-lang="en"],
   html[lang="is"] [data-lang="is"] { display: revert; }
@@ -487,6 +495,12 @@
   <footer>
     <span data-lang="en">© Fjalar Sigurdarson · Iceland · Made with quiet intention.</span>
     <span data-lang="is">© Fjalar Sigurðarson · Ísland · Gert í kyrrð og einlægni.</span>
+    <div class="links">
+      <a href="privacy-policy.html" data-lang="en">Privacy Policy</a>
+      <a href="privacy-policy.html" data-lang="is">Persónuverndarstefna</a>
+      <a href="terms.html" data-lang="en">Terms &amp; Conditions</a>
+      <a href="terms.html" data-lang="is">Skilmálar</a>
+    </div>
   </footer>
 
 </main>

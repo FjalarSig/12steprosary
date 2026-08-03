@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Privacy Policy — The 12-Step Rosary</title>
+<meta name="description" content="Privacy Policy for The 12-Step Rosary." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #faf6ef;
+    --bg-soft: #f3ede2;
+    --ink: #2a2722;
+    --ink-soft: #5b554c;
+    --rule: #d9d0bf;
+    --accent: #6b5a3e;
+    --accent-soft: #a08f72;
+    --max: 720px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    font-size: 19px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .lang-toggle {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 50;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 6px 4px;
+    display: inline-flex;
+    gap: 2px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .lang-toggle button {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font: inherit;
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .lang-toggle button[aria-pressed="true"] {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  main {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 64px 28px 120px;
+  }
+  header.hero { text-align: center; padding: 24px 0 8px; }
+  .eyebrow {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 22px;
+  }
+  h1 {
+    font-weight: 500;
+    font-size: clamp(36px, 6vw, 52px);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    margin: 0 0 18px;
+  }
+  .lede {
+    font-style: italic;
+    font-size: clamp(18px, 2.2vw, 21px);
+    color: var(--ink-soft);
+    max-width: 42ch;
+    margin: 0 auto;
+  }
+  .rule {
+    border: 0;
+    border-top: 1px solid var(--rule);
+    margin: 56px auto;
+    width: 60px;
+  }
+  section { margin: 44px 0; }
+  h2 {
+    font-weight: 500;
+    font-size: clamp(24px, 3.4vw, 28px);
+    letter-spacing: -0.005em;
+    margin: 0 0 14px;
+  }
+  p { margin: 0 0 18px; }
+  ul, ol { margin: 0 0 18px; padding-left: 24px; }
+  li { margin-bottom: 8px; }
+  .meta {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 13px;
+    color: var(--ink-soft);
+    text-align: center;
+    margin-top: -6px;
+  }
+  .contact a, .body-link {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-soft);
+  }
+  .contact a:hover, .body-link:hover { color: var(--ink); }
+  .back-link {
+    display: inline-block;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 8px;
+  }
+  .back-link:hover { color: var(--ink); }
+  footer {
+    text-align: center;
+    margin-top: 80px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+  }
+  footer .links { margin-top: 10px; }
+  footer .links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    margin: 0 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+  footer .links a:hover { color: var(--ink); }
+  [data-lang] { display: none; }
+  html[lang="en"] [data-lang="en"],
+  html[lang="is"] [data-lang="is"] { display: revert; }
+  html[lang="en"] section[data-lang="en"],
+  html[lang="is"] section[data-lang="is"],
+  html[lang="en"] header[data-lang="en"],
+  html[lang="is"] header[data-lang="is"],
+  html[lang="en"] div[data-lang="en"],
+  html[lang="is"] div[data-lang="is"] { display: block; }
+</style>
+</head>
+<body>
+
+<nav class="lang-toggle" aria-label="Language">
+  <button id="btn-en" aria-pressed="true" type="button">EN</button>
+  <button id="btn-is" aria-pressed="false" type="button">IS</button>
+</nav>
+
+<main>
+
+  <!-- ============ ENGLISH ============ -->
+  <header class="hero" data-lang="en">
+    <a class="back-link" href="index.html">&larr; Back to The 12-Step Rosary</a>
+    <div class="eyebrow">Legal</div>
+    <h1>Privacy Policy</h1>
+    <p class="lede">How Fjalar ráðgjöf ehf collects and uses personal data on this site.</p>
+    <p class="meta">Effective 3 August 2026</p>
+  </header>
+
+  <section data-lang="en">
+    <h2>1. Who we are</h2>
+    <p>This website, The 12-Step Rosary (12steprosary.vercel.app), is operated by <strong>Fjalar ráðgjöf ehf</strong>, kennitala (company registration number) 710326‑1260, Iceland ("we", "us", "our"). We are the data controller for the personal data described in this policy.</p>
+    <p>You can reach us at <a href="mailto:fjalarsig@gmail.com">fjalarsig@gmail.com</a> with any question about this policy or your data.</p>
+  </section>
+
+  <section data-lang="en">
+    <h2>2. What data we collect</h2>
+    <p>This site does not use cookies, analytics, or advertising trackers. We collect personal data only in the following situations:</p>
+    <ul>
+      <li><strong>When you contact us or place an order by email</strong> — we receive whatever you send us, which may include your name, email address, postal or shipping address, and the content of your message.</li>
+      <li><strong>When you pay for an order online</strong> — once online payment is available on this site, your payment details (e.g. card number) will be entered directly into, and processed by, our payment provider (such as Stripe). We do not receive or store your full card details ourselves; the provider processes them under its own privacy policy.</li>
+    </ul>
+  </section>
+
+  <section data-lang="en">
+    <h2>3. Fonts</h2>
+    <p>This site loads typefaces from Google Fonts (fonts.googleapis.com and fonts.gstatic.com). Loading a font causes your browser to connect directly to Google's servers, which may process your IP address as part of that connection. See <a class="body-link" href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's privacy policy</a> for details.</p>
+  </section>
+
+  <section data-lang="en">
+    <h2>4. Why we use your data</h2>
+    <p>We use the data you give us to respond to your enquiry, to process and fulfil your order (including arranging payment and shipping), and to keep records we are legally required to keep. Where we rely on your consent (for example, if you ask to be kept informed about the rosary), you may withdraw that consent at any time by emailing us.</p>
+  </section>
+
+  <section data-lang="en">
+    <h2>5. How long we keep it</h2>
+    <p>We keep order and correspondence records for as long as needed to fulfil your order and answer your questions, and afterwards for as long as Icelandic bookkeeping and tax law requires us to retain financial records (generally up to seven years).</p>
+  </section>
+
+  <section data-lang="en">
+    <h2>6. Sharing your data</h2>
+    <p>We do not sell your personal data. We share it only where necessary to fulfil your order — for example with a delivery or postal service to ship your rosary, or with our payment provider to process payment — or where required by law.</p>
+  </section>
+
+  <section data-lang="en">
+    <h2>7. Your rights</h2>
+    <p>As Iceland is part of the European Economic Area, you have rights under the GDPR framework, including the right to access, correct, delete, or restrict use of your personal data, to object to certain processing, and to receive your data in a portable format. To exercise any of these rights, email <a href="mailto:fjalarsig@gmail.com">fjalarsig@gmail.com</a>. You may also lodge a complaint with the Icelandic Data Protection Authority, Persónuvernd (personuvernd.is).</p>
+  </section>
+
+  <section data-lang="en">
+    <h2>8. Changes to this policy</h2>
+    <p>We may update this policy from time to time, for example as the site's features change. The date at the top of this page shows when it was last revised.</p>
+  </section>
+
+  <!-- ============ ICELANDIC ============ -->
+  <header class="hero" data-lang="is">
+    <a class="back-link" href="index.html">&larr; Til baka á Tólf spora talnabandið</a>
+    <div class="eyebrow">Lagalegt</div>
+    <h1>Persónuverndarstefna</h1>
+    <p class="lede">Hvernig Fjalar ráðgjöf ehf safnar og notar persónuupplýsingar á þessari síðu.</p>
+    <p class="meta">Gildir frá 3. ágúst 2026</p>
+  </header>
+
+  <section data-lang="is">
+    <h2>1. Hver ber ábyrgð</h2>
+    <p>Þessi vefsíða, Tólf spora talnabandið (12steprosary.vercel.app), er rekin af <strong>Fjalari ráðgjöf ehf</strong>, kennitala 710326‑1260, Íslandi ("við", "okkur"). Við erum ábyrgðaraðili þeirra persónuupplýsinga sem lýst er hér.</p>
+    <p>Þú getur haft samband við okkur á <a href="mailto:fjalarsig@gmail.com">fjalarsig@gmail.com</a> ef þú hefur spurningar um þessa stefnu eða þínar upplýsingar.</p>
+  </section>
+
+  <section data-lang="is">
+    <h2>2. Hvaða upplýsingum við söfnum</h2>
+    <p>Þessi síða notar hvorki vafrakökur, greiningartól né auglýsingamælingar. Við söfnum persónuupplýsingum aðeins í eftirfarandi tilvikum:</p>
+    <ul>
+      <li><strong>Þegar þú hefur samband eða pantar með tölvupósti</strong> — við fáum þær upplýsingar sem þú sendir okkur, svo sem nafn, netfang, heimilisfang og innihald skilaboðanna.</li>
+      <li><strong>Þegar þú greiðir fyrir pöntun á netinu</strong> — þegar greiðslulausn verður virk á síðunni fara greiðsluupplýsingar þínar (t.d. kortanúmer) beint til og eru unnar af greiðsluþjónustuveitanda okkar (t.d. Stripe). Við sjáum aldrei og geymum ekki greiðslukortaupplýsingar sjálf; veitandinn vinnur þær samkvæmt eigin persónuverndarstefnu.</li>
+    </ul>
+  </section>
+
+  <section data-lang="is">
+    <h2>3. Leturgerðir</h2>
+    <p>Síðan sækir leturgerðir frá Google Fonts (fonts.googleapis.com og fonts.gstatic.com). Þegar letur er sótt tengist vafrinn þinn beint við netþjóna Google, sem getur unnið IP‑tölu þína í því ferli. Sjá <a class="body-link" href="https://policies.google.com/privacy" target="_blank" rel="noopener">persónuverndarstefnu Google</a> fyrir nánari upplýsingar.</p>
+  </section>
+
+  <section data-lang="is">
+    <h2>4. Til hvers við notum upplýsingarnar</h2>
+    <p>Við notum upplýsingarnar sem þú gefur okkur til að svara fyrirspurn þinni, afgreiða og senda pöntun þína (þ.m.t. greiðslu og sendingu) og til að halda þær skrár sem okkur er skylt að halda samkvæmt lögum. Ef við byggjum á samþykki þínu (t.d. ef þú biður um að fá fréttir af talnabandinu) getur þú afturkallað það hvenær sem er með tölvupósti.</p>
+  </section>
+
+  <section data-lang="is">
+    <h2>5. Hversu lengi við geymum upplýsingarnar</h2>
+    <p>Við geymum pöntunar‑ og samskiptagögn eins lengi og þörf er á til að afgreiða pöntun þína og svara fyrirspurnum, og eftir það eins lengi og íslensk bókhalds‑ og skattalög krefjast varðveislu fjárhagsgagna (almennt allt að sjö ár).</p>
+  </section>
+
+  <section data-lang="is">
+    <h2>6. Miðlun upplýsinga</h2>
+    <p>Við seljum ekki persónuupplýsingar þínar. Við miðlum þeim aðeins þegar nauðsynlegt er til að afgreiða pöntun þína — til dæmis til flutningsaðila vegna sendingar, eða til greiðsluþjónustuveitanda vegna greiðslu — eða þegar lög krefjast þess.</p>
+  </section>
+
+  <section data-lang="is">
+    <h2>7. Réttindi þín</h2>
+    <p>Þar sem Ísland er hluti af Evrópska efnahagssvæðinu hefur þú réttindi samkvæmt persónuverndarlöggjöfinni (GDPR), m.a. rétt til aðgangs, leiðréttingar, eyðingar eða takmörkunar á vinnslu persónuupplýsinga þinna, rétt til að andmæla ákveðinni vinnslu og rétt til að fá gögnin afhent á flytjanlegu formi. Til að nýta þessi réttindi, sendu tölvupóst á <a href="mailto:fjalarsig@gmail.com">fjalarsig@gmail.com</a>. Þú getur einnig lagt fram kvörtun hjá Persónuvernd (personuvernd.is).</p>
+  </section>
+
+  <section data-lang="is">
+    <h2>8. Breytingar á þessari stefnu</h2>
+    <p>Við kunnum að uppfæra þessa stefnu, til dæmis ef eiginleikar síðunnar breytast. Dagsetningin efst á síðunni sýnir hvenær hún var síðast endurskoðuð.</p>
+  </section>
+
+  <hr class="rule" />
+
+  <footer>
+    <span data-lang="en">© Fjalar ráðgjöf ehf · Iceland</span>
+    <span data-lang="is">© Fjalar ráðgjöf ehf · Ísland</span>
+    <div class="links">
+      <a href="index.html" data-lang="en">Home</a>
+      <a href="index.html" data-lang="is">Forsíða</a>
+      <a href="terms.html" data-lang="en">Terms &amp; Conditions</a>
+      <a href="terms.html" data-lang="is">Skilmálar</a>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+  (function () {
+    const html = document.documentElement;
+    const enBtn = document.getElementById('btn-en');
+    const isBtn = document.getElementById('btn-is');
+
+    function setLang(lang) {
+      html.setAttribute('lang', lang);
+      enBtn.setAttribute('aria-pressed', lang === 'en');
+      isBtn.setAttribute('aria-pressed', lang === 'is');
+      try { localStorage.setItem('rosary.lang', lang); } catch (e) {}
+      document.title = lang === 'is'
+        ? 'Persónuverndarstefna — Tólf spora talnabandið'
+        : 'Privacy Policy — The 12-Step Rosary';
+    }
+
+    let initial = 'en';
+    try {
+      const stored = localStorage.getItem('rosary.lang');
+      if (stored === 'en' || stored === 'is') initial = stored;
+      else if ((navigator.language || '').toLowerCase().startsWith('is')) initial = 'is';
+    } catch (e) {}
+    setLang(initial);
+
+    enBtn.addEventListener('click', () => setLang('en'));
+    isBtn.addEventListener('click', () => setLang('is'));
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Terms &amp; Conditions — The 12-Step Rosary</title>
+<meta name="description" content="Terms and Conditions for The 12-Step Rosary." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #faf6ef;
+    --bg-soft: #f3ede2;
+    --ink: #2a2722;
+    --ink-soft: #5b554c;
+    --rule: #d9d0bf;
+    --accent: #6b5a3e;
+    --accent-soft: #a08f72;
+    --max: 720px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    font-size: 19px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .lang-toggle {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 50;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 6px 4px;
+    display: inline-flex;
+    gap: 2px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .lang-toggle button {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font: inherit;
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .lang-toggle button[aria-pressed="true"] {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  main {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 64px 28px 120px;
+  }
+  header.hero { text-align: center; padding: 24px 0 8px; }
+  .eyebrow {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 22px;
+  }
+  h1 {
+    font-weight: 500;
+    font-size: clamp(36px, 6vw, 52px);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    margin: 0 0 18px;
+  }
+  .lede {
+    font-style: italic;
+    font-size: clamp(18px, 2.2vw, 21px);
+    color: var(--ink-soft);
+    max-width: 42ch;
+    margin: 0 auto;
+  }
+  .rule {
+    border: 0;
+    border-top: 1px solid var(--rule);
+    margin: 56px auto;
+    width: 60px;
+  }
+  section { margin: 44px 0; }
+  h2 {
+    font-weight: 500;
+    font-size: clamp(24px, 3.4vw, 28px);
+    letter-spacing: -0.005em;
+    margin: 0 0 14px;
+  }
+  p { margin: 0 0 18px; }
+  ul, ol { margin: 0 0 18px; padding-left: 24px; }
+  li { margin-bottom: 8px; }
+  .meta {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 13px;
+    color: var(--ink-soft);
+    text-align: center;
+    margin-top: -6px;
+  }
+  .contact a, .body-link {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-soft);
+  }
+  .contact a:hover, .body-link:hover { color: var(--ink); }
+  .back-link {
+    display: inline-block;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 8px;
+  }
+  .back-link:hover { color: var(--ink); }
+  footer {
+    text-align: center;
+    margin-top: 80px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+  }
+  footer .links { margin-top: 10px; }
+  footer .links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    margin: 0 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+  footer .links a:hover { color: var(--ink); }
+  [data-lang] { display: none; }
+  html[lang="en"] [data-lang="en"],
+  html[lang="is"] [data-lang="is"] { display: revert; }
+  html[lang="en"] section[data-lang="en"],
+  html[lang="is"] section[data-lang="is"],
+  html[lang="en"] header[data-lang="en"],
+  html[lang="is"] header[data-lang="is"],
+  html[lang="en"] div[data-lang="en"],
+  html[lang="is"] div[data-lang="is"] { display: block; }
+</style>
+</head>
+<body>
+
+<nav class="lang-toggle" aria-label="Language">
+  <button id="btn-en" aria-pressed="true" type="button">EN</button>
+  <button id="btn-is" aria-pressed="false" type="button">IS</button>
+</nav>
+
+<main>
+
+  <!-- ============ ENGLISH ============ -->
+  <header class="hero" data-lang="en">
+    <a class="back-link" href="index.html">&larr; Back to The 12-Step Rosary</a>
+    <div class="eyebrow">Legal</div>
+    <h1>Terms &amp; Conditions</h1>
+    <p class="lede">The terms that apply when you order a 12-Step Rosary from us.</p>
+    <p class="meta">Effective 3 August 2026</p>
+  </header>
+
+  <section data-lang="en">
+    <h2>1. About us</h2>
+    <p>This website, The 12-Step Rosary (12steprosary.vercel.app), is operated by <strong>Fjalar ráðgjöf ehf</strong>, kennitala (company registration number) 710326‑1260, Iceland ("we", "us", "our"). You can reach us at <a href="mailto:fjalarsig@gmail.com">fjalarsig@gmail.com</a>. By ordering a rosary from us, you agree to these terms.</p>
+  </section>
+
+  <section data-lang="en">
+    <h2>2. The product</h2>
+    <p>Each 12-Step Rosary is a handmade item: a bead rosary with an interchangeable pendant, shipped together with a small cloth pouch containing a cross and an AA‑symbol pendant. Because pieces are handmade, small natural variations in bead colour, size, and finish should be expected and are not considered defects.</p>
+  </section>
+
+  <section data-lang="en">
+    <h2>3. Ordering</h2>
+    <p>At present, orders are placed by emailing us directly at <a href="mailto:fjalarsig@gmail.com">fjalarsig@gmail.com</a>; we then confirm price, shipping, and payment details with you individually before dispatch. We intend to add online payment to this site. Once available, orders placed through the online checkout will also be governed by these terms together with the payment provider's own terms.</p>
+    <p>A contract between you and us is formed only once we have confirmed your order, whether by email or through an online order confirmation.</p>
+  </section>
+
+  <section data-lang="en">
+    <h2>4. Price and payment</h2>
+    <p>Prices are as quoted to you at the time of your order and are inclusive of any applicable Icelandic VAT unless stated otherwise. Shipping costs, if any, will be communicated before you confirm your order. Payment is due before dispatch, using the method we agree with you (by email) or, once available, through our online payment provider.</p>
+  </section>
+
+  <section data-lang="en">
+    <h2>5. Shipping and delivery</h2>
+    <p>We ship from Iceland. Estimated delivery times will be communicated when we confirm your order and are estimates only, not guaranteed dates. Risk in the rosary passes to you once it is delivered to the address you provided.</p>
+  </section>
+
+  <section data-lang="en">
+    <h2>6. Your right to cancel (EEA consumers)</h2>
+    <p>If you are a consumer ordering from within the European Economic Area, you generally have the right to cancel your order within 14 days of receiving the rosary, without giving a reason, in accordance with the Icelandic Act on Consumer Transactions (lög um neytendasamninga nr. 16/2016). To cancel, email us at <a href="mailto:fjalarsig@gmail.com">fjalarsig@gmail.com</a> before the 14‑day period ends. You are responsible for return shipping costs and for returning the item in the condition you received it; we will refund what you paid, including standard delivery charges, within 14 days of receiving the returned item or evidence that it has been sent back.</p>
+    <p>Where a rosary is made or personalised specifically to your specification (for example, a custom pendant combination made to order), the right of cancellation may not apply to the extent permitted by Icelandic consumer law; we will tell you clearly at the time of order if this is the case.</p>
+  </section>
+
+  <section data-lang="en">
+    <h2>7. Faulty or damaged items</h2>
+    <p>Nothing in these terms affects your statutory rights as a consumer under the Icelandic Sale of Goods Act in respect of items that are faulty or not as described. If your rosary arrives damaged or defective, please contact us as soon as possible with photos of the issue so we can arrange a repair, replacement, or refund.</p>
+  </section>
+
+  <section data-lang="en">
+    <h2>8. Liability</h2>
+    <p>We are not liable for any indirect or consequential loss arising from your order. Nothing in these terms excludes or limits our liability for death or personal injury caused by our negligence, for fraud, or for any other liability that cannot lawfully be excluded or limited, nor does anything here limit your statutory rights as a consumer.</p>
+  </section>
+
+  <section data-lang="en">
+    <h2>9. Content and intellectual property</h2>
+    <p>The text, images, and design of this website belong to Fjalar ráðgjöf ehf unless otherwise noted, and may not be copied or reused without our permission. Reference to the Twelve Steps, Step Prayers, and the Serenity Prayer is made for informational purposes only; these belong to the literature of Alcoholics Anonymous and other twelve‑step fellowships and are not reproduced on this site.</p>
+  </section>
+
+  <section data-lang="en">
+    <h2>10. Governing law and disputes</h2>
+    <p>These terms are governed by the laws of Iceland. If a dispute arises that we cannot resolve directly with you, Icelandic consumers may refer the matter to the Icelandic Consumer Agency (Neytendastofa) or the relevant consumer complaints board, or bring the matter before the Icelandic courts.</p>
+  </section>
+
+  <section data-lang="en">
+    <h2>11. Changes to these terms</h2>
+    <p>We may update these terms from time to time, for example as our ordering process changes. The date at the top of this page shows when it was last revised. Changes will not affect orders you have already placed.</p>
+  </section>
+
+  <!-- ============ ICELANDIC ============ -->
+  <header class="hero" data-lang="is">
+    <a class="back-link" href="index.html">&larr; Til baka á Tólf spora talnabandið</a>
+    <div class="eyebrow">Lagalegt</div>
+    <h1>Skilmálar</h1>
+    <p class="lede">Skilmálarnir sem gilda þegar þú pantar Tólf spora talnaband frá okkur.</p>
+    <p class="meta">Gildir frá 3. ágúst 2026</p>
+  </header>
+
+  <section data-lang="is">
+    <h2>1. Um okkur</h2>
+    <p>Þessi vefsíða, Tólf spora talnabandið (12steprosary.vercel.app), er rekin af <strong>Fjalari ráðgjöf ehf</strong>, kennitala 710326‑1260, Íslandi ("við", "okkur"). Þú getur haft samband við okkur á <a href="mailto:fjalarsig@gmail.com">fjalarsig@gmail.com</a>. Með því að panta talnaband hjá okkur samþykkir þú þessa skilmála.</p>
+  </section>
+
+  <section data-lang="is">
+    <h2>2. Varan</h2>
+    <p>Hvert Tólf spora talnaband er handunnið: talnaband með skiptanlegu nisti, sent ásamt litlum taupoka með krossi og AA‑merki. Þar sem hlutirnir eru handunnir má búast við litlum náttúrulegum breytileika í lit, stærð og áferð perla, sem telst ekki galli.</p>
+  </section>
+
+  <section data-lang="is">
+    <h2>3. Pöntun</h2>
+    <p>Sem stendur eru pantanir gerðar með tölvupósti á <a href="mailto:fjalarsig@gmail.com">fjalarsig@gmail.com</a>; við staðfestum verð, sendingu og greiðslu í kjölfarið með þér áður en varan er send. Við stefnum að því að bæta við greiðslulausn á netinu á þessa síðu. Þegar hún verður virk munu pantanir gerðar í gegnum hana einnig lúta þessum skilmálum, ásamt skilmálum greiðsluþjónustuveitanda.</p>
+    <p>Samningur milli þín og okkar telst aðeins kominn á þegar við höfum staðfest pöntun þína, hvort sem er með tölvupósti eða með staðfestingu í gegnum vefverslun.</p>
+  </section>
+
+  <section data-lang="is">
+    <h2>4. Verð og greiðsla</h2>
+    <p>Verð eru þau sem tilkynnt eru þegar pöntun er staðfest og innihalda íslenskan virðisaukaskatt nema annað sé tekið fram. Sendingarkostnaður, ef einhver er, verður tilkynntur áður en þú staðfestir pöntun. Greiðsla skal fara fram áður en varan er send, með þeirri aðferð sem við semjum um (með tölvupósti) eða, þegar hún verður virk, í gegnum greiðslulausn síðunnar.</p>
+  </section>
+
+  <section data-lang="is">
+    <h2>5. Sending og afhending</h2>
+    <p>Við sendum frá Íslandi. Áætlaður afhendingartími verður tilkynntur við staðfestingu pöntunar og er einungis áætlun, ekki tryggð dagsetning. Áhætta af talnabandinu flyst til þín þegar það hefur verið afhent á það heimilisfang sem þú gafst upp.</p>
+  </section>
+
+  <section data-lang="is">
+    <h2>6. Skilaréttur (neytendur á EES-svæðinu)</h2>
+    <p>Ef þú ert neytandi og pantar innan Evrópska efnahagssvæðisins hefur þú almennt rétt til að hætta við kaupin innan 14 daga frá móttöku talnabandsins, án þess að tilgreina ástæðu, í samræmi við lög um neytendasamninga nr. 16/2016. Til að nýta skilaréttinn skaltu senda okkur tölvupóst á <a href="mailto:fjalarsig@gmail.com">fjalarsig@gmail.com</a> áður en 14 daga fresturinn rennur út. Þú berð kostnað af endursendingu og ábyrgist að skila vörunni í því ástandi sem þú fékkst hana; við endurgreiðum það sem þú greiddir, þ.m.t. hefðbundinn sendingarkostnað, innan 14 daga frá móttöku vörunnar eða staðfestingar á að hún hafi verið send til baka.</p>
+    <p>Ef talnaband er sérsniðið að þinni ósk (t.d. sérstök samsetning nista sem pöntuð er sérstaklega) kann skilarétturinn að falla niður að því marki sem íslensk neytendalög heimila; við munum tilkynna þér það skýrt við pöntun ef svo er.</p>
+  </section>
+
+  <section data-lang="is">
+    <h2>7. Gallaðar eða skemmdar vörur</h2>
+    <p>Ekkert í þessum skilmálum hefur áhrif á lögbundinn rétt þinn sem neytanda samkvæmt lögum um lausafjárkaup vegna vöru sem er gölluð eða ekki í samræmi við lýsingu. Ef talnabandið berst skemmt eða gallað skaltu hafa samband við okkur eins fljótt og hægt er, með myndum af vandamálinu, svo við getum boðið viðgerð, nýja vöru eða endurgreiðslu.</p>
+  </section>
+
+  <section data-lang="is">
+    <h2>8. Ábyrgðartakmörkun</h2>
+    <p>Við berum ekki ábyrgð á óbeinu tjóni sem leiðir af pöntun þinni. Ekkert í þessum skilmálum takmarkar eða útilokar ábyrgð okkar vegna dauða eða líkamstjóns af völdum gáleysis okkar, vegna svika, eða annarrar ábyrgðar sem ekki er heimilt að takmarka að lögum, né takmarkar neitt hér lögbundinn rétt þinn sem neytanda.</p>
+  </section>
+
+  <section data-lang="is">
+    <h2>9. Efni og hugverkaréttur</h2>
+    <p>Texti, myndir og hönnun þessarar vefsíðu tilheyra Fjalari ráðgjöf ehf nema annað sé tekið fram, og má ekki afrita eða endurnota án leyfis okkar. Tilvísanir í sporin tólf, sporabænirnar og æðruleysisbænina eru eingöngu til upplýsingar; þær tilheyra útgefnu efni AA‑samtakanna og annarra tólf spora samtaka og eru ekki birtar á þessari síðu.</p>
+  </section>
+
+  <section data-lang="is">
+    <h2>10. Gildandi lög og ágreiningur</h2>
+    <p>Um þessa skilmála gilda íslensk lög. Ef upp kemur ágreiningur sem ekki tekst að leysa milli okkar geta neytendur á Íslandi vísað málinu til Neytendastofu eða viðeigandi kærunefndar neytendamála, eða lagt málið fyrir íslenska dómstóla.</p>
+  </section>
+
+  <section data-lang="is">
+    <h2>11. Breytingar á skilmálum</h2>
+    <p>Við kunnum að uppfæra þessa skilmála, til dæmis ef pöntunarferlið breytist. Dagsetningin efst á síðunni sýnir hvenær þeir voru síðast endurskoðaðir. Breytingar hafa ekki áhrif á pantanir sem þegar hafa verið gerðar.</p>
+  </section>
+
+  <hr class="rule" />
+
+  <footer>
+    <span data-lang="en">© Fjalar ráðgjöf ehf · Iceland</span>
+    <span data-lang="is">© Fjalar ráðgjöf ehf · Ísland</span>
+    <div class="links">
+      <a href="index.html" data-lang="en">Home</a>
+      <a href="index.html" data-lang="is">Forsíða</a>
+      <a href="privacy-policy.html" data-lang="en">Privacy Policy</a>
+      <a href="privacy-policy.html" data-lang="is">Persónuverndarstefna</a>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+  (function () {
+    const html = document.documentElement;
+    const enBtn = document.getElementById('btn-en');
+    const isBtn = document.getElementById('btn-is');
+
+    function setLang(lang) {
+      html.setAttribute('lang', lang);
+      enBtn.setAttribute('aria-pressed', lang === 'en');
+      isBtn.setAttribute('aria-pressed', lang === 'is');
+      try { localStorage.setItem('rosary.lang', lang); } catch (e) {}
+      document.title = lang === 'is'
+        ? 'Skilmálar — Tólf spora talnabandið'
+        : 'Terms & Conditions — The 12-Step Rosary';
+    }
+
+    let initial = 'en';
+    try {
+      const stored = localStorage.getItem('rosary.lang');
+      if (stored === 'en' || stored === 'is') initial = stored;
+      else if ((navigator.language || '').toLowerCase().startsWith('is')) initial = 'is';
+    } catch (e) {}
+    setLang(initial);
+
+    enBtn.addEventListener('click', () => setLang('en'));
+    isBtn.addEventListener('click', () => setLang('is'));
+  })();
+</script>
+
+</body>
+</html>
