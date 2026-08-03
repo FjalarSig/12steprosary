@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Order not completed — The 12-Step Rosary</title>
+<meta name="description" content="Your order was not completed." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #faf6ef; --bg-soft: #f3ede2; --ink: #2a2722; --ink-soft: #5b554c;
+    --rule: #d9d0bf; --accent: #6b5a3e; --accent-soft: #a08f72; --max: 560px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    font-size: 19px; line-height: 1.65;
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  }
+  .lang-toggle {
+    position: fixed; top: 18px; right: 18px; z-index: 50;
+    font-family: 'Inter', system-ui, sans-serif; font-size: 12px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    background: var(--bg); border: 1px solid var(--rule); border-radius: 999px;
+    padding: 6px 4px; display: inline-flex; gap: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .lang-toggle button {
+    appearance: none; background: transparent; border: 0; padding: 4px 10px;
+    border-radius: 999px; font: inherit; color: var(--ink-soft); cursor: pointer;
+  }
+  .lang-toggle button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+  main {
+    max-width: var(--max); margin: 0 auto; padding: 96px 28px 120px; text-align: center;
+  }
+  .eyebrow {
+    font-family: 'Inter', system-ui, sans-serif; font-size: 12px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 22px;
+  }
+  h1 { font-weight: 500; font-size: clamp(32px, 5vw, 44px); line-height: 1.1; margin: 0 0 20px; }
+  p { margin: 0 0 18px; }
+  .lede { font-style: italic; color: var(--ink-soft); }
+  .actions { margin-top: 40px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; font-family: 'Inter', system-ui, sans-serif; font-size: 13px;
+    font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+    background: var(--ink); color: var(--bg); padding: 13px 26px; border-radius: 999px;
+    text-decoration: none;
+  }
+  .btn:hover { background: var(--accent); }
+  .btn.secondary { background: transparent; color: var(--ink); border: 1px solid var(--rule); }
+  .contact a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-soft); }
+  .contact a:hover { color: var(--ink); }
+  [data-lang] { display: none; }
+  html[lang="en"] [data-lang="en"], html[lang="is"] [data-lang="is"] { display: revert; }
+  html[lang="en"] div[data-lang="en"], html[lang="is"] div[data-lang="is"] { display: block; }
+</style>
+</head>
+<body>
+
+<nav class="lang-toggle" aria-label="Language">
+  <button id="btn-en" aria-pressed="true" type="button">EN</button>
+  <button id="btn-is" aria-pressed="false" type="button">IS</button>
+</nav>
+
+<main>
+
+  <div data-lang="en">
+    <div class="eyebrow">Order not completed</div>
+    <h1>Your payment was cancelled</h1>
+    <p class="lede">No payment was taken and no order was placed.</p>
+    <p>You can try again whenever you're ready, or write to us at <span class="contact"><a href="mailto:fjalar@fjalarsig.is">fjalar@fjalarsig.is</a></span> if you'd like help completing your order.</p>
+    <div class="actions">
+      <a class="btn" href="order.html">Try again</a>
+      <a class="btn secondary" href="index.html">Back to the site</a>
+    </div>
+  </div>
+
+  <div data-lang="is">
+    <div class="eyebrow">Pöntun ólokið</div>
+    <h1>Hætt var við greiðsluna</h1>
+    <p class="lede">Engin greiðsla var tekin og engin pöntun var gerð.</p>
+    <p>Þú getur reynt aftur hvenær sem er, eða sent okkur línu á <span class="contact"><a href="mailto:fjalar@fjalarsig.is">fjalar@fjalarsig.is</a></span> ef þú vilt aðstoð við að ljúka pöntuninni.</p>
+    <div class="actions">
+      <a class="btn" href="order.html">Reyna aftur</a>
+      <a class="btn secondary" href="index.html">Til baka á síðuna</a>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  (function () {
+    const html = document.documentElement;
+    const enBtn = document.getElementById('btn-en');
+    const isBtn = document.getElementById('btn-is');
+    function setLang(lang) {
+      html.setAttribute('lang', lang);
+      enBtn.setAttribute('aria-pressed', lang === 'en');
+      isBtn.setAttribute('aria-pressed', lang === 'is');
+      try { localStorage.setItem('rosary.lang', lang); } catch (e) {}
+      document.title = lang === 'is' ? 'Pöntun ólokið — Tólf spora talnabandið' : 'Order not completed — The 12-Step Rosary';
+    }
+    let initial = 'en';
+    try {
+      const stored = localStorage.getItem('rosary.lang');
+      if (stored === 'en' || stored === 'is') initial = stored;
+      else if ((navigator.language || '').toLowerCase().startsWith('is')) initial = 'is';
+    } catch (e) {}
+    setLang(initial);
+    enBtn.addEventListener('click', () => setLang('en'));
+    isBtn.addEventListener('click', () => setLang('is'));
+  })();
+</script>
+
+</body>
+</html>

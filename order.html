@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Order — The 12-Step Rosary</title>
+<meta name="description" content="Order The 12-Step Rosary — 4,500 ISK, shipped within Iceland." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #faf6ef;
+    --bg-soft: #f3ede2;
+    --ink: #2a2722;
+    --ink-soft: #5b554c;
+    --rule: #d9d0bf;
+    --accent: #6b5a3e;
+    --accent-soft: #a08f72;
+    --error-bg: #fbeaea;
+    --error-ink: #7a2b2b;
+    --max: 640px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    font-size: 19px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .lang-toggle {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 50;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 6px 4px;
+    display: inline-flex;
+    gap: 2px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .lang-toggle button {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font: inherit;
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .lang-toggle button[aria-pressed="true"] {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  main {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 64px 28px 120px;
+  }
+  header.hero { text-align: center; padding: 24px 0 8px; }
+  .eyebrow {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 22px;
+  }
+  h1 {
+    font-weight: 500;
+    font-size: clamp(36px, 6vw, 52px);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    margin: 0 0 18px;
+  }
+  .lede {
+    font-style: italic;
+    font-size: clamp(18px, 2.2vw, 21px);
+    color: var(--ink-soft);
+    max-width: 42ch;
+    margin: 0 auto;
+  }
+  .rule {
+    border: 0;
+    border-top: 1px solid var(--rule);
+    margin: 56px auto;
+    width: 60px;
+  }
+  section { margin: 44px 0; }
+  h2 {
+    font-weight: 500;
+    font-size: clamp(24px, 3.4vw, 28px);
+    letter-spacing: -0.005em;
+    margin: 0 0 14px;
+  }
+  p { margin: 0 0 18px; }
+  .back-link {
+    display: inline-block;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 8px;
+  }
+  .back-link:hover { color: var(--ink); }
+  .btn {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--bg);
+    padding: 16px 28px;
+    border-radius: 999px;
+    text-decoration: none;
+    border: 0;
+    cursor: pointer;
+  }
+  .btn:hover { background: var(--accent); }
+  .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+  .order-form { margin: 8px 0; }
+  .field { margin-bottom: 18px; }
+  .field label {
+    display: block;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+  }
+  .field input {
+    width: 100%;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 16px;
+    padding: 11px 13px;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: #fff;
+    color: var(--ink);
+  }
+  .field input:focus { outline: 2px solid var(--accent-soft); outline-offset: 1px; }
+  .field-row { display: flex; gap: 16px; }
+  .field-row .field { flex: 1; min-width: 0; }
+  .field-quantity input { max-width: 100px; }
+  .order-summary {
+    background: var(--bg-soft);
+    border-radius: 6px;
+    padding: 20px 24px;
+    margin: 28px 0;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 14px;
+  }
+  .order-summary .line {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 6px 0;
+  }
+  .order-summary .line.total {
+    border-top: 1px solid var(--rule);
+    margin-top: 6px;
+    padding-top: 12px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .form-message {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin: 0 0 18px;
+    display: none;
+  }
+  .form-message.visible {
+    display: block;
+    background: var(--error-bg);
+    color: var(--error-ink);
+  }
+  .form-message a { color: inherit; }
+  .footnote {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin-top: 18px;
+    text-align: center;
+  }
+  footer {
+    text-align: center;
+    margin-top: 80px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+  }
+  footer .links { margin-top: 10px; }
+  footer .links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    margin: 0 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+  footer .links a:hover { color: var(--ink); }
+  [data-lang] { display: none; }
+  html[lang="en"] [data-lang="en"],
+  html[lang="is"] [data-lang="is"] { display: revert; }
+  html[lang="en"] section[data-lang="en"],
+  html[lang="is"] section[data-lang="is"],
+  html[lang="en"] header[data-lang="en"],
+  html[lang="is"] header[data-lang="is"],
+  html[lang="en"] div[data-lang="en"],
+  html[lang="is"] div[data-lang="is"] { display: block; }
+</style>
+</head>
+<body>
+
+<nav class="lang-toggle" aria-label="Language">
+  <button id="btn-en" aria-pressed="true" type="button">EN</button>
+  <button id="btn-is" aria-pressed="false" type="button">IS</button>
+</nav>
+
+<main>
+
+  <!-- ============ ENGLISH ============ -->
+  <header class="hero" data-lang="en">
+    <a class="back-link" href="index.html">&larr; Back to The 12-Step Rosary</a>
+    <div class="eyebrow">Order</div>
+    <h1>The 12-Step Rosary</h1>
+    <p class="lede">4,500 ISK, including VAT. Shipped within Iceland.</p>
+  </header>
+
+  <section data-lang="en">
+    <p>Fill in your details below. You'll be taken to our payment provider Rapyd's secure page to pay by card, then brought back here.</p>
+  </section>
+
+  <!-- ============ ICELANDIC ============ -->
+  <header class="hero" data-lang="is">
+    <a class="back-link" href="index.html">&larr; Til baka á Tólf spora talnabandið</a>
+    <div class="eyebrow">Pöntun</div>
+    <h1>Tólf spora talnabandið</h1>
+    <p class="lede">4.500 kr., með vsk. Sent innan Íslands.</p>
+  </header>
+
+  <section data-lang="is">
+    <p>Fylltu út upplýsingarnar hér að neðan. Þú verður leidd/ur á örugga greiðslusíðu greiðsluþjónustuveitanda okkar, Rapyd, til að greiða með korti, og komið aftur hingað að því loknu.</p>
+  </section>
+
+  <!-- ============ SHARED FORM (translated via JS) ============ -->
+  <section>
+    <form id="order-form" class="order-form" novalidate>
+      <div class="field">
+        <label for="f-name" data-i18n="label_name">Full name</label>
+        <input id="f-name" name="name" type="text" required autocomplete="name" />
+      </div>
+      <div class="field">
+        <label for="f-email" data-i18n="label_email">Email</label>
+        <input id="f-email" name="email" type="email" required autocomplete="email" />
+      </div>
+      <div class="field">
+        <label for="f-address" data-i18n="label_address">Address</label>
+        <input id="f-address" name="address" type="text" required autocomplete="street-address" />
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="f-postcode" data-i18n="label_postcode">Postcode</label>
+          <input id="f-postcode" name="postcode" type="text" required autocomplete="postal-code" inputmode="numeric" />
+        </div>
+        <div class="field">
+          <label for="f-city" data-i18n="label_city">Town / city</label>
+          <input id="f-city" name="city" type="text" required autocomplete="address-level2" />
+        </div>
+      </div>
+      <div class="field field-quantity">
+        <label for="f-quantity" data-i18n="label_quantity">Quantity</label>
+        <input id="f-quantity" name="quantity" type="number" min="1" max="5" value="1" />
+      </div>
+
+      <div class="order-summary">
+        <div class="line">
+          <span><span data-i18n="summary_item">Rosary</span> &times; <span id="qty-display">1</span></span>
+          <span id="item-total">4,500 ISK</span>
+        </div>
+        <div class="line">
+          <span data-i18n="summary_shipping">Shipping (Iceland)</span>
+          <span id="shipping-total">1,290 ISK</span>
+        </div>
+        <div class="line total">
+          <span data-i18n="summary_total">Total</span>
+          <span id="grand-total">5,790 ISK</span>
+        </div>
+      </div>
+
+      <div id="form-message" class="form-message" role="alert"></div>
+
+      <button type="submit" id="submit-btn" class="btn" data-i18n="submit_btn">Continue to payment</button>
+    </form>
+    <p class="footnote" data-i18n="order_note">You'll be redirected to Rapyd's secure hosted page to complete payment by card.</p>
+  </section>
+
+  <hr class="rule" />
+
+  <footer>
+    <span data-lang="en">© Fjalar ráðgjöf ehf · Iceland</span>
+    <span data-lang="is">© Fjalar ráðgjöf ehf · Ísland</span>
+    <div class="links">
+      <a href="index.html" data-lang="en">Home</a>
+      <a href="index.html" data-lang="is">Forsíða</a>
+      <a href="privacy-policy.html" data-lang="en">Privacy Policy</a>
+      <a href="privacy-policy.html" data-lang="is">Persónuverndarstefna</a>
+      <a href="terms.html" data-lang="en">Terms &amp; Conditions</a>
+      <a href="terms.html" data-lang="is">Skilmálar</a>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+  (function () {
+    const html = document.documentElement;
+    const enBtn = document.getElementById('btn-en');
+    const isBtn = document.getElementById('btn-is');
+
+    const PRICE = 4500;
+    const SHIPPING = 1290;
+    const MAX_QTY = 5;
+
+    const STRINGS = {
+      en: {
+        label_name: 'Full name',
+        label_email: 'Email',
+        label_address: 'Address',
+        label_postcode: 'Postcode',
+        label_city: 'Town / city',
+        label_quantity: 'Quantity',
+        summary_item: 'Rosary',
+        summary_shipping: 'Shipping (Iceland)',
+        summary_total: 'Total',
+        submit_btn: 'Continue to payment',
+        submit_btn_busy: 'Please wait…',
+        order_note: "You'll be redirected to Rapyd's secure hosted page to complete payment by card.",
+        msg_invalid_input: 'Please fill in all fields.',
+        msg_not_configured: "Online payment isn't set up yet. Please email us to order: ",
+        msg_payment_failed: "We couldn't start the payment. Please try again, or email us: ",
+        msg_network: 'Something went wrong. Please try again, or email us: ',
+      },
+      is: {
+        label_name: 'Fullt nafn',
+        label_email: 'Netfang',
+        label_address: 'Heimilisfang',
+        label_postcode: 'Póstnúmer',
+        label_city: 'Bær / borg',
+        label_quantity: 'Fjöldi',
+        summary_item: 'Talnaband',
+        summary_shipping: 'Sending (Ísland)',
+        summary_total: 'Samtals',
+        submit_btn: 'Áfram í greiðslu',
+        submit_btn_busy: 'Augnablik…',
+        order_note: 'Þú verður leidd/ur á örugga greiðslusíðu Rapyd til að ljúka greiðslu með korti.',
+        msg_invalid_input: 'Vinsamlegast fylltu út alla reiti.',
+        msg_not_configured: 'Greiðslulausn er ekki enn virk. Sendu okkur tölvupóst til að panta: ',
+        msg_payment_failed: 'Ekki tókst að hefja greiðsluferli. Reyndu aftur, eða sendu okkur tölvupóst: ',
+        msg_network: 'Eitthvað fór úrskeiðis. Reyndu aftur, eða sendu okkur tölvupóst: ',
+      },
+    };
+
+    const CONTACT_EMAIL = 'fjalar@fjalarsig.is';
+
+    function currentLang() {
+      return html.getAttribute('lang') === 'is' ? 'is' : 'en';
+    }
+
+    function formatPrice(n, lang) {
+      if (lang === 'is') return n.toLocaleString('is-IS') + ' kr.';
+      return n.toLocaleString('en-US') + ' ISK';
+    }
+
+    function applyStrings(lang) {
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        const key = el.getAttribute('data-i18n');
+        if (STRINGS[lang] && STRINGS[lang][key]) el.textContent = STRINGS[lang][key];
+      });
+    }
+
+    function updateSummary() {
+      const lang = currentLang();
+      const qtyInput = document.getElementById('f-quantity');
+      let qty = parseInt(qtyInput.value, 10) || 1;
+      qty = Math.max(1, Math.min(MAX_QTY, qty));
+      qtyInput.value = qty;
+      document.getElementById('qty-display').textContent = qty;
+      document.getElementById('item-total').textContent = formatPrice(PRICE * qty, lang);
+      document.getElementById('shipping-total').textContent = formatPrice(SHIPPING, lang);
+      document.getElementById('grand-total').textContent = formatPrice(PRICE * qty + SHIPPING, lang);
+    }
+
+    function setLang(lang) {
+      html.setAttribute('lang', lang);
+      enBtn.setAttribute('aria-pressed', lang === 'en');
+      isBtn.setAttribute('aria-pressed', lang === 'is');
+      try { localStorage.setItem('rosary.lang', lang); } catch (e) {}
+      document.title = lang === 'is'
+        ? 'Pöntun — Tólf spora talnabandið'
+        : 'Order — The 12-Step Rosary';
+      applyStrings(lang);
+      updateSummary();
+    }
+
+    let initial = 'en';
+    try {
+      const stored = localStorage.getItem('rosary.lang');
+      if (stored === 'en' || stored === 'is') initial = stored;
+      else if ((navigator.language || '').toLowerCase().startsWith('is')) initial = 'is';
+    } catch (e) {}
+    setLang(initial);
+
+    enBtn.addEventListener('click', () => setLang('en'));
+    isBtn.addEventListener('click', () => setLang('is'));
+
+    document.getElementById('f-quantity').addEventListener('input', updateSummary);
+
+    const form = document.getElementById('order-form');
+    const msg = document.getElementById('form-message');
+    const submitBtn = document.getElementById('submit-btn');
+
+    function showMessage(key) {
+      const lang = currentLang();
+      const strings = STRINGS[lang];
+      let text = strings[key] || strings.msg_network;
+      if (key === 'msg_not_configured' || key === 'msg_payment_failed' || key === 'msg_network') {
+        text += CONTACT_EMAIL;
+      }
+      msg.textContent = text;
+      msg.className = 'form-message visible';
+    }
+
+    function clearMessage() {
+      msg.textContent = '';
+      msg.className = 'form-message';
+    }
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      clearMessage();
+
+      const lang = currentLang();
+      const data = {
+        name: document.getElementById('f-name').value.trim(),
+        email: document.getElementById('f-email').value.trim(),
+        address: document.getElementById('f-address').value.trim(),
+        postcode: document.getElementById('f-postcode').value.trim(),
+        city: document.getElementById('f-city').value.trim(),
+        quantity: document.getElementById('f-quantity').value,
+        lang: lang,
+      };
+
+      if (!data.name || !data.email || !data.address || !data.postcode || !data.city) {
+        showMessage('msg_invalid_input');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = STRINGS[lang].submit_btn_busy;
+
+      try {
+        const res = await fetch('/api/create-checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        const json = await res.json().catch(() => ({}));
+
+        if (res.ok && json.redirect_url) {
+          window.location.href = json.redirect_url;
+          return;
+        }
+
+        const key = json.error === 'not_configured' ? 'msg_not_configured'
+          : json.error === 'invalid_input' ? 'msg_invalid_input'
+          : 'msg_payment_failed';
+        showMessage(key);
+      } catch (err) {
+        showMessage('msg_network');
+      }
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = STRINGS[currentLang()].submit_btn;
+    });
+  })();
+</script>
+
+</body>
+</html>
