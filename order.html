@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Order — The 12-Step Rosary</title>
-<meta name="description" content="Order The 12-Step Rosary — 4,500 ISK, shipped within Iceland." />
+<meta name="description" content="Order The 12-Step Rosary — 4.500 ISK, shipped within Iceland." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -247,7 +247,7 @@
     <a class="back-link" href="index.html">&larr; Back to The 12-Step Rosary</a>
     <div class="eyebrow">Order</div>
     <h1>The 12-Step Rosary</h1>
-    <p class="lede">4,500 ISK, including VAT. Shipped within Iceland.</p>
+    <p class="lede">4.500 ISK, including VAT. Shipped within Iceland.</p>
   </header>
 
   <section data-lang="en">
@@ -299,15 +299,15 @@
       <div class="order-summary">
         <div class="line">
           <span><span data-i18n="summary_item">Rosary</span> &times; <span id="qty-display">1</span></span>
-          <span id="item-total">4,500 ISK</span>
+          <span id="item-total">4.500 ISK</span>
         </div>
         <div class="line">
           <span data-i18n="summary_shipping">Shipping (Iceland)</span>
-          <span id="shipping-total">1,290 ISK</span>
+          <span id="shipping-total">1.290 ISK</span>
         </div>
         <div class="line total">
           <span data-i18n="summary_total">Total</span>
-          <span id="grand-total">5,790 ISK</span>
+          <span id="grand-total">5.790 ISK</span>
         </div>
       </div>
 
@@ -391,8 +391,12 @@
     }
 
     function formatPrice(n, lang) {
-      if (lang === 'is') return n.toLocaleString('is-IS') + ' kr.';
-      return n.toLocaleString('en-US') + ' ISK';
+      // Grouped with a period regardless of display language, per Icelandic
+      // convention for ISK — comma is reserved for fractions. Formatted by
+      // hand rather than via toLocaleString('is-IS'), whose grouping/decimal
+      // separators are unreliable across browsers' ICU data.
+      const grouped = Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      return lang === 'is' ? grouped + ' kr.' : grouped + ' ISK';
     }
 
     function applyStrings(lang) {
