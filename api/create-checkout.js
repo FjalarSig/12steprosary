@@ -2,7 +2,7 @@ const crypto = require('crypto');
 
 // Fixed pricing for the single product this shop sells. Iceland-only shipping for now.
 const PRODUCT_PRICE_ISK = 4500;
-const SHIPPING_FEE_ISK = 1290;
+const SHIPPING_FEE_ISK = 590;
 const MAX_QUANTITY = 5;
 
 const RAPYD_BASE_URL = process.env.RAPYD_BASE_URL || 'https://sandboxapi.rapyd.net';

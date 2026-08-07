@@ -221,7 +221,15 @@
   }
 
   @media print {
-    .page, .card, .qr-frame { background: none !important; }
+    /* Printer has only white stock: paint the cream tone as ink instead of
+       relying on tinted paper. .qr-frame stays stripped so the cream shows
+       through its quiet zone, matching the original tinted-stock look. */
+    .card {
+      background: var(--paper) !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .page, .qr-frame { background: none !important; }
   }
 </style>
 </head>
