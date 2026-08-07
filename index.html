@@ -555,8 +555,10 @@
 
     let initial = 'en';
     try {
+      const fromUrl = new URLSearchParams(window.location.search).get('lang');
       const stored = localStorage.getItem('rosary.lang');
-      if (stored === 'en' || stored === 'is') initial = stored;
+      if (fromUrl === 'en' || fromUrl === 'is') initial = fromUrl;
+      else if (stored === 'en' || stored === 'is') initial = stored;
       else if ((navigator.language || '').toLowerCase().startsWith('is')) initial = 'is';
     } catch (e) {}
     setLang(initial);
