@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /order-success.html
+Disallow: /order-cancelled.html
+Disallow: /order-error.html
+Disallow: /print-label.html
+
+Sitemap: https://12steprosary.vercel.app/sitemap.xml
