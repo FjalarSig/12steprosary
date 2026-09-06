@@ -57,6 +57,68 @@
   html[lang="en"] [data-lang="en"], html[lang="is"] [data-lang="is"] { display: revert; }
   html[lang="en"] div[data-lang="en"], html[lang="is"] div[data-lang="is"] { display: block; }
 </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '982763194834927');
+fbq('track', 'PageView');
+(function () {
+  function getCookie(name) {
+    var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? decodeURIComponent(match[2]) : '';
+  }
+
+  var params = new URLSearchParams(window.location.search);
+  var amount = parseFloat(params.get('amount'));
+  var qty = parseInt(params.get('qty'), 10) || 1;
+  var ref = params.get('ref');
+
+  var email = '';
+  try {
+    email = sessionStorage.getItem('rosary.email') || '';
+    sessionStorage.removeItem('rosary.email');
+  } catch (e) {}
+
+  if (amount > 0) {
+    fbq('track', 'Purchase', {
+      content_ids: ['12-step-rosary'],
+      content_type: 'product',
+      num_items: qty,
+      value: amount,
+      currency: 'ISK'
+    }, ref ? { eventID: ref } : undefined);
+
+    try {
+      fetch('/api/capi-event', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          event_name: 'Purchase',
+          event_id: ref || '',
+          event_source_url: window.location.href,
+          value: amount,
+          num_items: qty,
+          fbp: getCookie('_fbp'),
+          fbc: getCookie('_fbc'),
+          email: email,
+        }),
+        keepalive: true,
+      }).catch(function () {});
+    } catch (e) {}
+  }
+})();
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=982763194834927&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 

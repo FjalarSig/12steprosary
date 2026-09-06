@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Print Shipping Label</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: #eee7d8;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #2a2722;
+  }
+
+  /* ---------- On-screen layout (not printed) ---------- */
+  .no-print { }
+  .wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+  @media (max-width: 760px) {
+    .wrap { grid-template-columns: 1fr; }
+  }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .hint { font-size: 13px; color: #5b554c; margin: 0 0 24px; line-height: 1.5; }
+  .panel {
+    background: #fff;
+    border: 1px solid #d9d0bf;
+    border-radius: 8px;
+    padding: 20px;
+  }
+  .panel h2 {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6b5a3e;
+    margin: 0 0 14px;
+  }
+  .field { margin-bottom: 14px; }
+  .field label {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    color: #5b554c;
+    margin-bottom: 5px;
+  }
+  .field input, .field textarea {
+    width: 100%;
+    font-family: inherit;
+    font-size: 15px;
+    padding: 9px 11px;
+    border: 1px solid #d9d0bf;
+    border-radius: 4px;
+    background: #fff;
+    color: #2a2722;
+  }
+  .field textarea { resize: vertical; min-height: 44px; }
+  .field-row { display: flex; gap: 12px; }
+  .field-row .field { flex: 1; min-width: 0; }
+  .actions { margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
+  button {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 12px 20px;
+    border-radius: 999px;
+    border: 0;
+    cursor: pointer;
+  }
+  #print-btn { background: #2a2722; color: #faf6ef; }
+  #print-btn:hover { background: #6b5a3e; }
+  #clear-btn { background: transparent; color: #5b554c; border: 1px solid #d9d0bf; }
+  #clear-btn:hover { color: #2a2722; border-color: #a08f72; }
+
+  /* ---------- Size chooser ---------- */
+  .size-choice {
+    display: flex;
+    gap: 10px;
+  }
+  .size-option {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border: 1px solid #d9d0bf;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  .size-option input { width: auto; margin: 0; }
+  .size-option.active { border-color: #6b5a3e; background: #faf6ef; }
+
+  /* ---------- Label preview (screen) ---------- */
+  .preview-outer { position: sticky; top: 24px; display: flex; flex-direction: column; align-items: center; }
+  .preview-note { font-size: 12px; color: #5b554c; margin-bottom: 10px; text-align: center; }
+  #label {
+    width: 100mm;
+    height: 150mm;
+    background: #fff;
+    box-shadow: 0 2px 14px rgba(0,0,0,0.18);
+    padding: 7mm;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #000;
+  }
+  .from-block {
+    font-size: 3.2mm;
+    line-height: 1.4;
+    color: #333;
+    border-bottom: 0.4mm solid #000;
+    padding-bottom: 4mm;
+    margin-bottom: 7mm;
+    white-space: pre-wrap;
+  }
+  .from-block .tag {
+    font-size: 2.6mm;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #666;
+    display: block;
+    margin-bottom: 1.5mm;
+  }
+  .to-block { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .to-block .tag {
+    font-size: 3.2mm;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 4mm;
+  }
+  .to-name {
+    font-size: 8.5mm;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 5mm;
+    word-break: break-word;
+  }
+  .to-address {
+    font-size: 6.5mm;
+    line-height: 1.45;
+    font-weight: 500;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .to-postcode-city {
+    font-size: 7.5mm;
+    font-weight: 700;
+    margin-top: 3mm;
+  }
+  .footer-block {
+    font-size: 3.2mm;
+    color: #444;
+    border-top: 0.4mm solid #000;
+    padding-top: 3.5mm;
+    margin-top: 6mm;
+    display: flex;
+    justify-content: space-between;
+    gap: 4mm;
+  }
+  #label:empty::after { content: ""; }
+
+  /* ---------- 10 x 7 cm landscape variant ---------- */
+  #label.label--landscape {
+    width: 100mm;
+    height: 70mm;
+    padding: 5mm;
+  }
+  #label.label--landscape .from-block {
+    font-size: 2.6mm;
+    padding-bottom: 2mm;
+    margin-bottom: 3mm;
+  }
+  #label.label--landscape .from-block .tag { font-size: 2.2mm; margin-bottom: 1mm; }
+  #label.label--landscape .to-block .tag { font-size: 2.6mm; margin-bottom: 2mm; }
+  #label.label--landscape .to-name { font-size: 6mm; margin-bottom: 2.5mm; }
+  #label.label--landscape .to-address { font-size: 4.2mm; line-height: 1.3; }
+  #label.label--landscape .to-postcode-city { font-size: 5mm; margin-top: 1.5mm; }
+  #label.label--landscape .footer-block {
+    font-size: 2.6mm;
+    padding-top: 2mm;
+    margin-top: 3mm;
+  }
+
+  /* ---------- Print ---------- */
+  @media print {
+    body { background: #fff; }
+    .no-print { display: none !important; }
+    .preview-outer { position: static; }
+    #label {
+      box-shadow: none;
+      margin: 0;
+      page-break-after: avoid;
+    }
+    #label:not(.label--landscape) { width: 100mm; height: 150mm; }
+    #label.label--landscape { width: 100mm; height: 70mm; }
+    html, body { width: 100mm; }
+    .wrap {
+      display: block;
+      max-width: none;
+      margin: 0;
+      padding: 0;
+    }
+    .preview-outer {
+      padding: 0;
+      margin: 0;
+      align-items: flex-start;
+    }
+  }
+</style>
+<style id="page-size-style">@page { size: 100mm 150mm; margin: 0; }</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="no-print">
+    <h1>Shipping Label — D100</h1>
+    <p class="hint" id="hint-text">
+      Fill in the recipient's details from the order (Rapyd dashboard or order email), then click
+      Print. In the print dialog, set <strong>paper size to 100 × 150 mm (4 × 6 in)</strong> and
+      <strong>margins to none</strong> — most label-printer drivers set this automatically once
+      you select the D100 as the destination.
+    </p>
+
+    <div class="panel">
+      <h2>Label size</h2>
+      <div class="size-choice">
+        <label class="size-option active" id="opt-15">
+          <input type="radio" name="size" value="15" checked />
+          10 × 15 cm (portrait)
+        </label>
+        <label class="size-option" id="opt-7">
+          <input type="radio" name="size" value="7" />
+          10 × 7 cm (landscape)
+        </label>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top: 20px;">
+      <h2>Sender (set once — remembered on this device)</h2>
+      <div class="field">
+        <label for="f-from">From</label>
+        <textarea id="f-from" rows="3" placeholder="Fjalar ráðgjöf ehf&#10;Address line&#10;Postcode City"></textarea>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top: 20px;">
+      <h2>Recipient</h2>
+      <div class="field">
+        <label for="f-name">Full name</label>
+        <input id="f-name" type="text" autocomplete="off" />
+      </div>
+      <div class="field">
+        <label for="f-address">Address</label>
+        <input id="f-address" type="text" autocomplete="off" />
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="f-postcode">Postcode</label>
+          <input id="f-postcode" type="text" inputmode="numeric" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="f-city">Town / city</label>
+          <input id="f-city" type="text" autocomplete="off" />
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="f-qty">Quantity</label>
+          <input id="f-qty" type="text" value="1" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="f-ref">Order note / date (optional)</label>
+          <input id="f-ref" type="text" placeholder="e.g. 15 Aug 2026" autocomplete="off" />
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button id="print-btn" type="button">Print label</button>
+      <button id="clear-btn" type="button">Clear recipient</button>
+    </div>
+  </div>
+
+  <div class="preview-outer">
+    <p class="preview-note no-print" id="preview-note">Live preview — actual size is 10 × 15 cm</p>
+    <div id="label">
+      <div class="from-block" id="p-from"><span class="tag">From</span></div>
+      <div class="to-block">
+        <div class="tag">Ship to</div>
+        <div class="to-name" id="p-name">Recipient name</div>
+        <div class="to-address" id="p-address">Street address</div>
+        <div class="to-postcode-city" id="p-postcode-city">Postcode City</div>
+      </div>
+      <div class="footer-block">
+        <span id="p-qty">Qty: 1</span>
+        <span id="p-ref"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const fFrom = document.getElementById('f-from');
+    const fName = document.getElementById('f-name');
+    const fAddress = document.getElementById('f-address');
+    const fPostcode = document.getElementById('f-postcode');
+    const fCity = document.getElementById('f-city');
+    const fQty = document.getElementById('f-qty');
+    const fRef = document.getElementById('f-ref');
+
+    const pFrom = document.getElementById('p-from');
+    const pName = document.getElementById('p-name');
+    const pAddress = document.getElementById('p-address');
+    const pPostcodeCity = document.getElementById('p-postcode-city');
+    const pQty = document.getElementById('p-qty');
+    const pRef = document.getElementById('p-ref');
+
+    const STORAGE_KEY = 'rosary.label.from';
+    const SIZE_KEY = 'rosary.label.size';
+
+    const label = document.getElementById('label');
+    const pageSizeStyle = document.getElementById('page-size-style');
+    const previewNote = document.getElementById('preview-note');
+    const hintText = document.getElementById('hint-text');
+    const optPortrait = document.getElementById('opt-15');
+    const optLandscape = document.getElementById('opt-7');
+    const radios = document.querySelectorAll('input[name="size"]');
+
+    const SIZES = {
+      15: {
+        pageSize: '@page { size: 100mm 150mm; margin: 0; }',
+        note: 'Live preview — actual size is 10 × 15 cm',
+        dialogSize: '100 × 150 mm (4 × 6 in)',
+      },
+      7: {
+        pageSize: '@page { size: 100mm 70mm; margin: 0; }',
+        note: 'Live preview — actual size is 10 × 7 cm',
+        dialogSize: '100 × 70 mm',
+      },
+    };
+
+    function applySize(size) {
+      const cfg = SIZES[size] || SIZES[15];
+      label.classList.toggle('label--landscape', size === '7');
+      pageSizeStyle.textContent = cfg.pageSize;
+      previewNote.textContent = cfg.note;
+      hintText.innerHTML = 'Fill in the recipient\'s details from the order (Rapyd dashboard or order email), then click ' +
+        'Print. In the print dialog, set <strong>paper size to ' + cfg.dialogSize + '</strong> and ' +
+        '<strong>margins to none</strong> — most label-printer drivers set this automatically once ' +
+        'you select the D100 as the destination.';
+      optPortrait.classList.toggle('active', size !== '7');
+      optLandscape.classList.toggle('active', size === '7');
+      try { localStorage.setItem(SIZE_KEY, size); } catch (e) {}
+    }
+
+    let initialSize = '15';
+    try {
+      const savedSize = localStorage.getItem(SIZE_KEY);
+      if (savedSize === '15' || savedSize === '7') initialSize = savedSize;
+    } catch (e) {}
+    document.querySelector('input[name="size"][value="' + initialSize + '"]').checked = true;
+    applySize(initialSize);
+
+    radios.forEach(function (radio) {
+      radio.addEventListener('change', function () {
+        if (radio.checked) applySize(radio.value);
+      });
+    });
+
+    try {
+      const savedFrom = localStorage.getItem(STORAGE_KEY);
+      if (savedFrom) fFrom.value = savedFrom;
+    } catch (e) {}
+
+    function render() {
+      pFrom.innerHTML = '<span class="tag">From</span>' +
+        (fFrom.value.trim() || '').replace(/</g, '&lt;').replace(/\n/g, '<br>');
+      pName.textContent = fName.value.trim() || 'Recipient name';
+      pAddress.textContent = fAddress.value.trim() || 'Street address';
+      const postcode = fPostcode.value.trim();
+      const city = fCity.value.trim();
+      pPostcodeCity.textContent = [postcode, city].filter(Boolean).join(' ') || 'Postcode City';
+      const qty = fQty.value.trim() || '1';
+      pQty.textContent = 'Qty: ' + qty;
+      pRef.textContent = fRef.value.trim();
+    }
+
+    [fFrom, fName, fAddress, fPostcode, fCity, fQty, fRef].forEach(function (el) {
+      el.addEventListener('input', render);
+    });
+
+    fFrom.addEventListener('input', function () {
+      try { localStorage.setItem(STORAGE_KEY, fFrom.value); } catch (e) {}
+    });
+
+    document.getElementById('print-btn').addEventListener('click', function () {
+      window.print();
+    });
+
+    document.getElementById('clear-btn').addEventListener('click', function () {
+      fName.value = '';
+      fAddress.value = '';
+      fPostcode.value = '';
+      fCity.value = '';
+      fQty.value = '1';
+      fRef.value = '';
+      render();
+      fName.focus();
+    });
+
+    render();
+  })();
+</script>
+
+</body>
+</html>

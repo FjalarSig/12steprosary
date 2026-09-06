@@ -93,6 +93,24 @@
     max-width: 42ch;
     margin: 0 auto;
   }
+  .kit-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    margin: 0 0 28px;
+  }
+  .includes {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 28px;
+  }
+  .includes li {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .includes li:last-child { border-bottom: 0; }
   .rule {
     border: 0;
     border-top: 1px solid var(--rule);
@@ -242,6 +260,29 @@
   html[lang="en"] div[data-lang="en"],
   html[lang="is"] div[data-lang="is"] { display: block; }
 </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '982763194834927');
+fbq('track', 'PageView');
+fbq('track', 'ViewContent', {
+  content_ids: ['12-step-rosary'],
+  content_type: 'product',
+  value: 4450,
+  currency: 'ISK'
+});
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=982763194834927&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -261,6 +302,14 @@
   </header>
 
   <section data-lang="en">
+    <img class="kit-image" src="photo-kit.jpg" width="825" height="1100" alt="The 12-Step Rosary set: a lava-bead rosary, black pouch, two pendants, and a guide card" />
+    <h2>What's included</h2>
+    <ul class="includes">
+      <li>A rosary with 12 beads for the twelve steps, 3 beads for the serenity prayer, and a pendant symbolizing your higher power</li>
+      <li>A velvet pouch to carry it in</li>
+      <li>Two pendants to start with — a plain cross and the AA symbol (circle and triangle)</li>
+      <li>Guidance, printed in Icelandic and English, explaining how to use it</li>
+    </ul>
     <p>Fill in your details below. You'll be taken to our payment provider Rapyd's secure page to pay by card, then brought back here.</p>
   </section>
 
@@ -273,6 +322,14 @@
   </header>
 
   <section data-lang="is">
+    <img class="kit-image" src="photo-kit.jpg" width="825" height="1100" alt="Tólf spora talnabandið: hraunperluband, flauelspoki, tvö nisti og leiðbeiningar" />
+    <h2>Hvað fylgir</h2>
+    <ul class="includes">
+      <li>Talnaband með 12 perlum sem tákna sporin, 3 perlum sem tákna æðruleysisbænina og nisti sem tákn fyrir þinn æðri mátt</li>
+      <li>Flauelspoki til að geyma það í</li>
+      <li>Tvö nisti til að byrja með — einfaldur kross og AA táknið (hringur og þríhyrningur)</li>
+      <li>Leiðbeiningar, á íslensku og ensku, sem útskýra notkun</li>
+    </ul>
     <p>Fylltu út upplýsingarnar hér að neðan. Þú verður leidd/ur á örugga greiðslusíðu greiðsluþjónustuveitanda okkar, Rapyd, til að greiða með korti, og komið aftur hingað að því loknu.</p>
   </section>
 
@@ -372,6 +429,8 @@
         submit_btn_busy: 'Please wait…',
         order_note: "You'll be redirected to Rapyd's secure hosted page to complete payment by card.",
         msg_invalid_input: 'Please fill in all fields.',
+        msg_invalid_email: 'Please enter a valid email address.',
+        msg_invalid_postcode: 'Please enter a valid 3-digit postcode.',
         msg_not_configured: "Online payment isn't set up yet. Please email us to order: ",
         msg_payment_failed: "We couldn't start the payment. Please try again, or email us: ",
         msg_network: 'Something went wrong. Please try again, or email us: ',
@@ -390,6 +449,8 @@
         submit_btn_busy: 'Augnablik…',
         order_note: 'Þú verður leidd/ur á örugga greiðslusíðu Rapyd til að ljúka greiðslu með korti.',
         msg_invalid_input: 'Vinsamlegast fylltu út alla reiti.',
+        msg_invalid_email: 'Vinsamlegast sláðu inn gilt netfang.',
+        msg_invalid_postcode: 'Vinsamlegast sláðu inn gilt 3ja stafa póstnúmer.',
         msg_not_configured: 'Greiðslulausn er ekki enn virk. Sendu okkur tölvupóst til að panta: ',
         msg_payment_failed: 'Ekki tókst að hefja greiðsluferli. Reyndu aftur, eða sendu okkur tölvupóst: ',
         msg_network: 'Eitthvað fór úrskeiðis. Reyndu aftur, eða sendu okkur tölvupóst: ',
@@ -397,6 +458,31 @@
     };
 
     const CONTACT_EMAIL = 'fjalar@fjalarsig.is';
+
+    function getCookie(name) {
+      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      return match ? decodeURIComponent(match[2]) : '';
+    }
+
+    function sendCapiEvent(eventName, eventId, value, qty, email) {
+      try {
+        fetch('/api/capi-event', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            event_name: eventName,
+            event_id: eventId,
+            event_source_url: window.location.href,
+            value: value,
+            num_items: qty,
+            fbp: getCookie('_fbp'),
+            fbc: getCookie('_fbc'),
+            email: email || '',
+          }),
+          keepalive: true,
+        }).catch(function () {});
+      } catch (e) {}
+    }
 
     function currentLang() {
       return html.getAttribute('lang') === 'is' ? 'is' : 'en';
@@ -430,6 +516,35 @@
       document.getElementById('grand-total').textContent = formatPrice(PRICE * qty + SHIPPING, lang);
     }
 
+    var REQUIRED_FIELDS = ['f-name', 'f-email', 'f-address', 'f-postcode', 'f-city'];
+    var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Read + trim every field the checkout needs.
+    function readForm() {
+      return {
+        name: document.getElementById('f-name').value.trim(),
+        email: document.getElementById('f-email').value.trim(),
+        address: document.getElementById('f-address').value.trim(),
+        postcode: document.getElementById('f-postcode').value.trim(),
+        city: document.getElementById('f-city').value.trim(),
+        quantity: document.getElementById('f-quantity').value,
+      };
+    }
+
+    // Returns null when the form is good to submit, otherwise a message key.
+    function formError(d) {
+      if (!d.name || !d.email || !d.address || !d.postcode || !d.city) return 'msg_invalid_input';
+      if (!EMAIL_RE.test(d.email)) return 'msg_invalid_email';
+      if (!/^\d{3}$/.test(d.postcode)) return 'msg_invalid_postcode';
+      return null;
+    }
+
+    // Keep the pay button disabled until every required field is filled in and valid.
+    function refreshSubmitState() {
+      var busy = submitBtn.dataset.busy === '1';
+      submitBtn.disabled = busy || formError(readForm()) !== null;
+    }
+
     function setLang(lang) {
       html.setAttribute('lang', lang);
       enBtn.setAttribute('aria-pressed', lang === 'en');
@@ -459,6 +574,18 @@
     const msg = document.getElementById('form-message');
     const submitBtn = document.getElementById('submit-btn');
 
+    // Block payment until every required field is filled in and valid.
+    REQUIRED_FIELDS.forEach(function (id) {
+      const el = document.getElementById(id);
+      el.addEventListener('input', refreshSubmitState);
+      el.addEventListener('blur', refreshSubmitState);
+      el.addEventListener('change', refreshSubmitState);
+    });
+    refreshSubmitState();
+    // Browser autofill often doesn't fire input events — re-check shortly after load.
+    setTimeout(refreshSubmitState, 300);
+    window.addEventListener('pageshow', refreshSubmitState);
+
     function showMessage(key) {
       const lang = currentLang();
       const strings = STRINGS[lang];
@@ -480,23 +607,33 @@
       clearMessage();
 
       const lang = currentLang();
-      const data = {
-        name: document.getElementById('f-name').value.trim(),
-        email: document.getElementById('f-email').value.trim(),
-        address: document.getElementById('f-address').value.trim(),
-        postcode: document.getElementById('f-postcode').value.trim(),
-        city: document.getElementById('f-city').value.trim(),
-        quantity: document.getElementById('f-quantity').value,
-        lang: lang,
-      };
+      const data = readForm();
+      data.lang = lang;
 
-      if (!data.name || !data.email || !data.address || !data.postcode || !data.city) {
-        showMessage('msg_invalid_input');
+      const err = formError(data);
+      if (err) {
+        showMessage(err);
+        refreshSubmitState();
         return;
       }
 
+      submitBtn.dataset.busy = '1';
       submitBtn.disabled = true;
       submitBtn.textContent = STRINGS[lang].submit_btn_busy;
+
+      if (typeof fbq === 'function') {
+        const qty = parseInt(data.quantity, 10) || 1;
+        const value = PRICE * qty + SHIPPING;
+        const eventId = 'ic_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+        fbq('track', 'InitiateCheckout', {
+          content_ids: ['12-step-rosary'],
+          content_type: 'product',
+          num_items: qty,
+          value: value,
+          currency: 'ISK'
+        }, { eventID: eventId });
+        sendCapiEvent('InitiateCheckout', eventId, value, qty, data.email);
+      }
 
       try {
         const res = await fetch('/api/create-checkout', {
@@ -507,6 +644,7 @@
         const json = await res.json().catch(() => ({}));
 
         if (res.ok && json.redirect_url) {
+          try { sessionStorage.setItem('rosary.email', data.email); } catch (e) {}
           window.location.href = json.redirect_url;
           return;
         }
@@ -519,8 +657,9 @@
         showMessage('msg_network');
       }
 
-      submitBtn.disabled = false;
+      submitBtn.dataset.busy = '0';
       submitBtn.textContent = STRINGS[currentLang()].submit_btn;
+      refreshSubmitState();
     });
   })();
 </script>

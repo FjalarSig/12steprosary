@@ -55,14 +55,15 @@ module.exports = async function handler(req, res) {
 
   const origin = `https://${req.headers.host}`;
   const urlPath = '/v1/checkout';
+  const merchantReferenceId = `rosary_${Date.now()}`;
   const checkoutBody = {
     amount,
     currency: 'ISK',
     country: 'IS',
-    complete_checkout_url: `${origin}/order-success.html`,
+    complete_checkout_url: `${origin}/order-success.html?amount=${amount}&qty=${quantity}&ref=${merchantReferenceId}`,
     cancel_checkout_url: `${origin}/order-cancelled.html`,
     error_payment_url: `${origin}/order-error.html`,
-    merchant_reference_id: `rosary_${Date.now()}`,
+    merchant_reference_id: merchantReferenceId,
     language: lang,
     metadata: { name, email, address, postcode, city, quantity },
   };
