@@ -201,6 +201,18 @@
     font-weight: 600;
     color: var(--ink);
   }
+  .order-summary .line[hidden] { display: none; }
+  .order-summary .line.usd-line {
+    color: var(--ink-soft);
+    font-size: 13px;
+    padding: 2px 0 0;
+  }
+  .order-summary .usd-note {
+    color: var(--ink-soft);
+    font-size: 12px;
+    line-height: 1.5;
+    margin: 8px 0 0;
+  }
   .form-message {
     font-family: 'Inter', system-ui, sans-serif;
     font-size: 14px;
@@ -298,7 +310,7 @@ src="https://www.facebook.com/tr?id=982763194834927&ev=PageView&noscript=1"
     <a class="back-link" href="index.html">&larr; Back to The 12-Step Rosary</a>
     <div class="eyebrow">Order</div>
     <h1>The 12-Step Rosary</h1>
-    <p class="lede">4.450 ISK, VAT included. Ships within Iceland, or to the USA.</p>
+    <p class="lede">4.450 ISK <span id="lede-usd">(≈ $37)</span>, VAT included. Ships within Iceland, or to the USA.</p>
   </header>
 
   <section data-lang="en">
@@ -440,6 +452,11 @@ src="https://www.facebook.com/tr?id=982763194834927&ev=PageView&noscript=1"
           <span data-i18n="summary_total">Total</span>
           <span id="grand-total">5.790 ISK</span>
         </div>
+        <div class="line usd-line" id="usd-line" hidden>
+          <span data-i18n="summary_usd">Approx. in USD</span>
+          <span id="usd-total"></span>
+        </div>
+        <p class="usd-note" id="usd-note" hidden>USD is approximate, converted at ISK/USD ≈ <span id="usd-rate">121</span> (7 Sep 2026). You are charged in ISK; your bank sets the final rate.</p>
       </div>
 
       <div id="form-message" class="form-message" role="alert"></div>
@@ -478,9 +495,17 @@ src="https://www.facebook.com/tr?id=982763194834927&ev=PageView&noscript=1"
     const SHIPPING_IS = 490;
     const SHIPPING_US = 1070;
     const MAX_QTY = 5;
+    // Indicative ISK/USD rate for the approximate USD figures shown on the
+    // English side. Update this (and the "7 Sep 2026" date in the markup) when
+    // the rate has drifted; customers are always charged in ISK.
+    const ISK_PER_USD = 121.15;
 
     function shippingFor(dest) {
       return dest === 'US' ? SHIPPING_US : SHIPPING_IS;
+    }
+
+    function usd(isk) {
+      return '≈ $' + Math.round(isk / ISK_PER_USD);
     }
 
     const STRINGS = {
@@ -500,6 +525,7 @@ src="https://www.facebook.com/tr?id=982763194834927&ev=PageView&noscript=1"
         summary_shipping: 'Shipping (Iceland)',
         summary_shipping_us: 'Shipping (USA)',
         summary_total: 'Total',
+        summary_usd: 'Approx. in USD',
         submit_btn: 'Continue to payment',
         submit_btn_busy: 'Please wait…',
         order_note: "You'll be redirected to Rapyd's secure hosted page to complete payment by card.",
@@ -528,6 +554,7 @@ src="https://www.facebook.com/tr?id=982763194834927&ev=PageView&noscript=1"
         summary_shipping: 'Sending (Ísland)',
         summary_shipping_us: 'Sending (BNA)',
         summary_total: 'Samtals',
+        summary_usd: 'Um það bil í USD',
         submit_btn: 'Áfram í greiðslu',
         submit_btn_busy: 'Augnablik…',
         order_note: 'Þú verður leidd/ur á örugga greiðslusíðu Rapyd til að ljúka greiðslu með korti.',
@@ -614,7 +641,19 @@ src="https://www.facebook.com/tr?id=982763194834927&ev=PageView&noscript=1"
           : STRINGS[lang].summary_shipping;
       }
       document.getElementById('shipping-total').textContent = formatPrice(shipping, lang);
-      document.getElementById('grand-total').textContent = formatPrice(PRICE * qty + shipping, lang);
+      const grand = PRICE * qty + shipping;
+      document.getElementById('grand-total').textContent = formatPrice(grand, lang);
+
+      // Approximate USD, English side only.
+      const showUsd = lang === 'en';
+      document.getElementById('usd-line').hidden = !showUsd;
+      document.getElementById('usd-note').hidden = !showUsd;
+      const ledeUsd = document.getElementById('lede-usd');
+      if (showUsd) {
+        document.getElementById('usd-total').textContent = usd(grand);
+        document.getElementById('usd-rate').textContent = Math.round(ISK_PER_USD);
+        if (ledeUsd) ledeUsd.textContent = '(' + usd(PRICE) + ')';
+      }
     }
 
     // Toggle the State field and relabel the postcode field to match the
