@@ -345,14 +345,17 @@ module.exports = async function handler(req, res) {
     invoiceStatus = 'skipped — PAYDAY_CLIENT_ID / PAYDAY_CLIENT_SECRET not set';
   }
 
+  // Keep the "Postcode:" / "City:" / "State:" / "Country:" labels stable — the
+  // label printer (rosary-label-printer/watch-orders.js) parses this body.
+  // "Postcode" holds the 5-digit ZIP for USA orders.
   const rows = [
     ['Customer', name],
     ['Email', email],
     ['Address', address],
-    [isExport ? 'ZIP' : 'Postcode', postcode],
+    ['Postcode', postcode],
     ['City', city],
-    ...(isExport ? [['State', state]] : []),
-    ['Destination', isExport ? 'USA' : 'Iceland'],
+    ['State', isExport ? state : ''],
+    ['Country', isExport ? 'USA' : 'Iceland'],
     ['Quantity', `${qty} × 12-Step Rosary`],
     ['Goods', formatIsk(subtotal)],
     ['Shipping', formatIsk(shipping)],
