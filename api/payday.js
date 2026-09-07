@@ -135,13 +135,21 @@ async function createInvoice({ customerId, description, lines, markPaid }) {
     currencyCode: 'ISK',
     createClaim: false,
     sendEmail: true,
-    lines: lines.map((l) => ({
-      description: l.description,
-      quantity: l.quantity,
-      unitPriceIncludingVat: l.unitPriceIncludingVat,
-      vatPercentage: l.vatPercentage,
-      discountPercentage: 0,
-    })),
+    lines: lines.map((l) => {
+      const line = {
+        description: l.description,
+        quantity: l.quantity,
+        unitPriceIncludingVat: l.unitPriceIncludingVat,
+        vatPercentage: l.vatPercentage,
+        discountPercentage: 0,
+      };
+      // Link the line to a registered Payday product (for sales/stock reports).
+      // The line still carries its own price + vatPercentage, which win over the
+      // product's — needed so USA export lines can be 0% on a 24% product.
+      if (l.productId) line.productId = l.productId;
+      if (l.sku) line.sku = l.sku;
+      return line;
+    }),
   };
   if (markPaid && PAYMENT_TYPE_ID) {
     body.paidDate = d;

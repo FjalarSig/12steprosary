@@ -55,6 +55,7 @@ invoiced at 0% VAT (export).
 | `PAYDAY_CLIENT_SECRET` | no | The secret from that screen (shown once — copy it before confirming). |
 | `PAYDAY_BASE_URL` | no | `https://api.payday.is` (default, production) or `https://api.test.payday.is` (a separate sandbox signup at `app.test.payday.is`). |
 | `PAYDAY_PAYMENT_TYPE_ID` | no | GUID of the payment type to book the invoice as **paid** (the order is already paid via Rapyd). `GET /sales/paymenttypes` lists them, or Payday → **Sala → Greiðslumátar**. If unset, the invoice is still created and emailed, but as unpaid — the owner email flags it to be marked paid by hand. |
+| `PAYDAY_PRODUCT_ID` | no | GUID of the registered "Tólf spora talnaband" product (`GET /products`, or Payday → **Sala → Vörur**). When set, the rosary line links to it so the sale shows under the product and decrements its stock. The line still sends its own price and `vatPercentage` (so USA export lines stay 0% on the 24% product). Unset = free-text line, no stock movement. Shipping is always a free-text line. |
 
 Redeploy after adding variables — Vercel functions do not pick up new env vars
 until the next deploy.

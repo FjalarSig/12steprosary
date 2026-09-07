@@ -321,6 +321,8 @@ module.exports = async function handler(req, res) {
             quantity: qty,
             unitPriceIncludingVat: PRODUCT_PRICE_ISK,
             vatPercentage: vatRate,
+            // Links the line to the registered Payday product (sales + stock).
+            productId: process.env.PAYDAY_PRODUCT_ID || undefined,
           },
           {
             description: lang === 'en' ? 'Shipping' : 'Sending',
